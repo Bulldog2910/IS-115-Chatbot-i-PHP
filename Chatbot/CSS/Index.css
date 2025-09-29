@@ -1,0 +1,36 @@
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb( 162, 210, 255 );
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#overskrift {
+  text-align: center;
+  font-size: 69px;
+  font-weight: bold;
+  color: rgb(255, 175, 204);
+}
+
+.chatty {
+  display: flex;
+  justify-content: center; 
+  background-color: rgb(189, 224, 254);
+  padding: 20px;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  width: 50vw;
+  justify-content: flex-start;
+    
+}

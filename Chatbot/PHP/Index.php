@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="../CSS/Index.css">
 <body>
 
-<div class="">
- <h1>Chatbot</h1>
+<div class="chatty">
+ <h1 id="overskrift">Chatbot</h1>
  <form action="">
-    Input : <input type="text" placeholder="Kukost" name="" id=""> <br>
+    Input : <input type="text" placeholder="Elias har liten tiss" name="" id=""> <br>
     Output : <output placeholder="Output"></output>
     
  </form>
