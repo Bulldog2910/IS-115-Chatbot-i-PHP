@@ -9,7 +9,7 @@
 <div class="chatty">
  <h1 id="overskrift">Chatbot</h1>
  <form action="">
-    Input : <input type="text" placeholder="Mathias har liten tiss" name="" id=""> <br>
+    Input : <input type="text" placeholder="Elias har liten tiss" name="" id=""> <br>
     Output : <output placeholder="Output"></output>
     
  </form>
