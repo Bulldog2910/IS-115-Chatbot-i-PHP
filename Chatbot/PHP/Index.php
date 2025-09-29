@@ -8,6 +8,11 @@
 
 <div class="">
  <h1>Chatbot</h1>
+ <form action="">
+    Input : <input type="text" placeholder="Kukost" name="" id=""> <br>
+    Output : <output placeholder="Output"></output>
+    
+ </form>
 </div>
 
 </body>
