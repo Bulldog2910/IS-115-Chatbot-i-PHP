@@ -1,6 +1,6 @@
 -- Create database
-CREATE DATABASE IF NOT EXISTS FAQUiaChatbot;
-USE FAQUiaChatbot;
+-- CREATE DATABASE IF NOT EXISTS FAQUiaChatbot;
+-- USE FAQUiaChatbot;
 
 -- Drop existing tables
 DROP TABLE IF EXISTS questionLog, questions, category, keyWords, chatUser;

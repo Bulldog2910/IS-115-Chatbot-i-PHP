@@ -1,26 +1,18 @@
 <?php
-    $servername = "localhost"; // Or the IP address of your MySQL server
-    $username = "root"; // Default XAMPP username for MySQL
-    $password = ""; // Default XAMPP password for MySQL (often empty)
-    $dbname = "FAQuia"; // Replace with your actual database name
+$serverName = "localhost";
+$username = "root";
+$password = "";
+$dbName = "FAQUiaChatbot";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = mysqli_connect($serverName, $username, $password, $dbName);
 
-     // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    echo "Connected successfully";
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connection to database succesfull";
+?>
 
-    // You can now execute SQL queries using $conn->query() or prepared statements
-    // ...
-
-    // Close connection
-    $conn->close();
-    ?>
-
-
-    ?>
 
 
