@@ -1,6 +1,4 @@
-<?php
-include '_header';
-?>
+<?php include '_header';?>
 <body>
     <!-- login form -->
     <Form>
@@ -11,3 +9,5 @@ include '_header';
 </body>
 
 </html>
+
+<?php include '_footer.php';?>
