@@ -1,36 +1,39 @@
-html {
+/* Applies to the entire HTML document */
+.html {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
 }
 
+/* Applies to the entire website */
 body {
-  background-color: rgb( 162, 210, 255 );
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  background-color: rgb( 162, 210, 255 ); /* Fixes light blue background across the page */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  height: 100vh; /* Fixes full viewport height*/
+  display: flex; /* Enables flexbox layout */
+  justify-content: center; /*Horizontally centers the content */
+  align-items: flex-start; /* Aligns items to the top */
 }
-
+/* Styles the chatbot heading making it large and visible */
 #overskrift {
-  text-align: center;
-  font-size: 69px;
-  font-weight: bold;
-  color: rgb(255, 175, 204);
+  text-align: center; /* Centers the text */
+  font-size: 69px; /* Large font size for visibility */
+  font-weight: bold; /* Bold font weight */
+  color: rgb(255, 175, 204); /* Pink color for the text */
 }
 
+/* Styles the main chatbot container */
 .chatty {
-  display: flex;
-  justify-content: center; 
-  background-color: rgb(189, 224, 254);
-  padding: 20px;
-  border-radius: 10px;
-  flex-direction: column;
-  align-items: center;
-  min-height: 80vh;
-  width: 50vw;
-  justify-content: flex-start;
+  display: flex; /* Enables flexbox layout */
+  justify-content: center; /* Horizontally centers the content */
+  background-color: rgb(189, 224, 254); /* Light blue background for the chatbot */
+  padding: 20px; /* Adds padding inside the container */
+  border-radius: 10px; /* Rounds the corners of the container */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center; /* Centers items horizontally */
+  min-height: 80vh; /* Sets a minimum height */
+  width: 50vw; /* Sets the width */
+  justify-content: flex-start; /* Aligns items to the top */
     
 }
