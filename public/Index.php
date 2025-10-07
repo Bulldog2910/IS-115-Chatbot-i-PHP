@@ -5,26 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="./CSS/Index.css">
 <body>
-   <?php
-   if(array_key_exists('createdb', $_POST)) {
-            createdb();
-        }
-   function createdb(){
-      // includes code from db.php to start connection to database
-      include '../app/config/db.php';
-      
-      // Read schema.sql and run
-      $sqlPath = "../app/database/schema.sql";
-      $sql = file_get_contents($sqlPath);
-      if (mysqli_multi_query($conn, $sql)) {
-      echo "<br>Tables created successfully";
-      } else {
-      echo "Error creating table: " . mysqli_error($conn);
-      }
-      // close connection to database
-      mysqli_close($conn);
-   }
-      ?>
+   <?php include '../app/controllers/dbController.php';?>
 
 <div class="chatty">
  <h1 id="overskrift">Chatbot</h1>
