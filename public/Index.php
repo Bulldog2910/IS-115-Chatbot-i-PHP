@@ -8,7 +8,7 @@
       <input type="submit" name="createdb" class="button" value="Create database"/>
    </form>
    <form action="">
-      Input : <input type="text" placeholder="Elias har liten tiss" name="" id=""> <br>
+      Input : <input type="text" placeholder="Input" name="" id=""> <br>
       Output : <output placeholder="Output"></output>
    </form>
 </div>
