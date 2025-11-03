@@ -26,8 +26,15 @@ body {
 /* Styles the main chatbot container */
 .chatty {
   display: flex; /* Enables flexbox layout */
-  justify-content: center; /* Horizontally centers the content */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
   background-color: rgb(189, 224, 254); /* Light blue background for the chatbot */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  width: 80%;
+  max-width: 600px;
   padding: 20px; /* Adds padding inside the container */
   border-radius: 10px; /* Rounds the corners of the container */
   flex-direction: column; /* Stacks children vertically */
