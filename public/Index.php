@@ -1,6 +1,17 @@
 <?php 
 session_start();
 
+// Sjekk om bruker er logget inn
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../app/views/login.php");
+    exit();
+}
+// Håndter logout
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ../app/views/login.php");
+    exit();
+}
 // Get values from session if they exist
 $message = $_SESSION['message'] ?? '';
 $output = $_SESSION['output'] ?? '';
@@ -18,9 +29,13 @@ mysqli_close($conn);
 
 <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>
-   <form method="POST" action="../app/controllers/ProcessController.php">
-      <input type="submit" name="createdb" class="button" value="Create database"/>
+
+   <div class="user-info">
+   <span>Logget inn som: <?php echo htmlspecialchars($_SESSION['user_email'] ?? 'Ukjent'); ?></span>
+   <form method="POST" style="display: inline;">
+      <input type="submit" name="logout" class="button" value="Logg ut">
    </form>
+</div>
 
    <form method="POST" action="../app/controllers/ProcessController.php">
       Fornavn: <input type="text" name="message" placeholder="Skriv her..." value="<?php echo htmlspecialchars($message); ?>"><br>
