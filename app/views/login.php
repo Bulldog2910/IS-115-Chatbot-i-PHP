@@ -3,7 +3,7 @@ session_start();
 include '_header.php';
 
 $errorMsg = array();
-$email = "";
+$email = "elias@erkul.com";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) 
     // Hent og rens input
@@ -24,7 +24,7 @@ if (!$password) {
 
 // Hvis ingen feil, fortsett med login
 if (!count($errorMsg)) {
-    if ($email === "elias@erkul.com" && $password === "pokemonlover123!") {
+    if ($email === "elias@erkul.com" && $password === "123") {
         $_SESSION['user_id'] = 1;
         $_SESSION['user_email'] = $email;
         header("Location: ../../public/Index.php");
@@ -66,7 +66,7 @@ if (!count($errorMsg)) {
                    id="password" 
                    name="password" 
                    required 
-                   placeholder="Ditt passord">
+                   placeholder="123">
         </div>
 
         <button type="submit" name="login" class="button">Logg inn</button>

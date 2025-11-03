@@ -36,11 +36,6 @@ mysqli_close($conn);
       <input type="submit" name="logout" class="button" value="Logg ut">
    </form>
 </div>
-   <form method="POST">
-
-
-      <input type="submit" name="createdb" class="button" value="Create database"/>
-   </form>
 
    <form method="POST" action="../app/controllers/ProcessController.php">
       Fornavn: <input type="text" name="message" placeholder="Skriv her..." value="<?php echo htmlspecialchars($message); ?>"><br>
