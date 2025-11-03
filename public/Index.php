@@ -4,9 +4,16 @@
 
 <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>
-   <form action="">
-      Input : <input type="text" placeholder="Input" name="" id=""> <br>
-      Output : <output placeholder="Output"></output>
+   <form method="POST">
+      <input type="submit" name="createdb" class="button" value="Create database"/>
+   </form>
+   <form method="POST" action="">
+      <input type="text" placeholder="Skriv din melding her..." name="user_input" required> <br>
+         <input type="submit" name="send_message" value="Send melding" class="button">
+      <br> <br>
+      <div class="output-field">
+         <textarea id="chat_output" name="chat_output" readonly rows="4" cols="50" placeholder="Chatbotens svar vil vises her..."><?php echo isset($_SESSION['chat_response']) ? $_SESSION['chat_response'] : ''; ?></textarea>
+      </div>
    </form>
 </div>
 
