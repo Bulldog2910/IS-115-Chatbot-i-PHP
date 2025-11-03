@@ -1,9 +1,32 @@
 
-<?php include '../app/views/_header.php';?>
-<?php include '../app/controllers/dbController.php';?>
+<?php
+session_start();
+
+// Sjekk om bruker er logget inn
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../app/views/login.php");
+    exit();
+}
+
+include '../app/views/_header.php';
+include '../app/controllers/dbController.php';
+
+// Håndter logout
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ../app/views/login.php");
+    exit();
+}
+?>
 
 <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>
+   <div class="user-info">
+   <span>Logget inn som: <?php echo htmlspecialchars($_SESSION['user_email'] ?? 'Ukjent'); ?></span>
+   <form method="POST" style="display: inline;">
+      <input type="submit" name="logout" class="button" value="Logg ut">
+   </form>
+</div>
    <form method="POST">
       <input type="submit" name="createdb" class="button" value="Create database"/>
    </form>
