@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS questionLog, questions, category, keyWords, chatUser;
 CREATE TABLE chatUser (
     userId INT AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(60),
-    lasName VARCHAR(60),
+    lastName VARCHAR(60),
     userpassword VARCHAR(255) NOT NULL,
     mail VARCHAR(60) NOT NULL,
     username VARCHAR(40) NOT NULL
