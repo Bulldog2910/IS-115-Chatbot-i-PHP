@@ -1,7 +1,4 @@
 <?php
-// includes code from db.php to start connection to database
-include __DIR__ . '/../config/db.php';
-
 echo "<br>Starting database setup...<br>";
 
 
@@ -56,7 +53,4 @@ if (mysqli_num_rows($result) == 0) {
 }
 
 echo "Setup complete!<br>";
-
-// close connection to database
-mysqli_close($conn);
 ?>
