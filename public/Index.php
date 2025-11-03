@@ -1,6 +1,6 @@
 
-<?php include '../app/views/_header.php';?>
-<?php include '../app/controllers/dbController.php';?>
+<?php include __DIR__ . '/../app/views/_header.php';?>
+<?php include __DIR__ . '/../app/controllers/dbController.php';?>
 
 <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>

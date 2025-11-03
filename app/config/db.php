@@ -2,10 +2,9 @@
 $serverName = "localhost";
 $username = "root";
 $password = "";
-$dbName = "FAQUiaChatbot";
 
 // Create connection
-$conn = mysqli_connect($serverName, $username, $password, $dbName);
+$conn = mysqli_connect($serverName, $username, $password);
 
 // Check connection
 if (!$conn) {
