@@ -8,10 +8,12 @@ $error = $_SESSION['error'] ?? [];
 
 // Clear session values after displaying
 unset($_SESSION['message'], $_SESSION['output'], $_SESSION['error']);
+include __DIR__ . '/../app/views/_header.php';
 
-include '../app/views/_header.php';
-include '../app/controllers/dbController.php';
-include '../app/controllers/chatbotController.php';
+// includes code from db.php to start connection to database
+include __DIR__ . '/../app/config/db.php';
+include __DIR__ . '/../app/controllers/dbController.php';
+mysqli_close($conn);
 ?>
 
 <div class="chatty">
@@ -29,5 +31,9 @@ include '../app/controllers/chatbotController.php';
       <input type="submit" name="Send" value="Send">
    </form>
 </div>
+
+
+
+<a href="../app//views/userCreation.php">User creation</a>
 
 <?php include '../app/views/_footer.php';?>
