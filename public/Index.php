@@ -31,7 +31,7 @@ mysqli_close($conn);
    <h1 id="overskrift">Chatbot</h1>
 
    <div class="user-info">
-   <span>Logget inn som: <?php echo htmlspecialchars($_SESSION['user_email'] ?? 'Ukjent'); ?></span>
+   <span>Logget inn som: <?php echo htmlspecialchars($_SESSION['username']); ?></span>
    <form method="POST" style="display: inline;">
       <input type="submit" name="logout" class="button" value="Logg ut">
    </form>
