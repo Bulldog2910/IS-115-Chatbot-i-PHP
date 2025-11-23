@@ -12,7 +12,8 @@ CREATE TABLE chatUser (
     lastName VARCHAR(60),
     userpassword VARCHAR(255) NOT NULL,
     mail VARCHAR(60) NOT NULL,
-    username VARCHAR(40) NOT NULL
+    username VARCHAR(40) NOT NULL,
+    role ENUM('standard', 'admin') DEFAULT 'standard'
 );
 
 -- keyWords table
