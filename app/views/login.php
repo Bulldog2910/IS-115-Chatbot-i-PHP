@@ -1,4 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
+
+<?php
 session_start();
 include '_header.php';
 
@@ -24,13 +30,30 @@ if (!$password) {
 
 // Hvis ingen feil, fortsett med login
 if (!count($errorMsg)) {
-    if ($email === "elias@erkul.com" && $password === "123") {
-        $_SESSION['user_id'] = 1;
-        $_SESSION['user_email'] = $email;
-        header("Location: ../../public/Index.php");
-        exit();
-    } else {
+
+    include __DIR__ . '/../config/db.php';
+
+    $conn->select_db('FAQUiaChatbot');
+
+    $stmt = $conn->prepare('SELECT * FROM chatUser WHERE mail = ?');
+    $stmt->bind_param('s', $_POST['email']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+
+    if($result->num_rows !== 0){
+        $row = $result->fetch_assoc();
+        if($row['userpassword'] == $_POST['password']){
+            $_SESSION['user_id'] = 1;
+            $_SESSION['username'] = $row['username'];
+            header("Location: ../../public/Index.php");
+            exit(); 
+        }else{
+            $errorMsg['Wrong password'] = "Feil passord";
+        }
+    }else{
         $errorMsg['login'] = "Feil email eller passord";
+
     }
 }
 ?>
@@ -71,6 +94,7 @@ if (!count($errorMsg)) {
 
         <button type="submit" name="login" class="button">Logg inn</button>
     </form>
+    <a class="button" href="./userCreation.php">User creation</a>
 </div>
 
 <?php include '_footer.php'; ?>
