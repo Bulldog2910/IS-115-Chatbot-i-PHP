@@ -53,6 +53,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./CSS/Index.css">
+    <link rel="stylesheet" href="./CSS/site.css">
+
 </head>
 <body>
+    <nav>
+        <ul>
+            <a href="../app/views/userCreation.php">User creation</a>
+            <a href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
+            <div class="user-info">
+            <form method="POST" style="display: inline;">
+                <input type="submit" name="logout" class="button" value="Logg ut">
+            </form>
+        </ul>
+    </nav>
