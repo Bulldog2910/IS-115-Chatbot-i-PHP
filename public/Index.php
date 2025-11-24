@@ -5,7 +5,7 @@ include __DIR__ . '/../app/views/_header.php';
 
 ?>
 
-<div class="chatty">
+<!-- <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>
 
    <div class="user-info">
@@ -23,11 +23,10 @@ include __DIR__ . '/../app/views/_header.php';
       Output : <output><?php echo htmlspecialchars($output); ?></output><br>
       <input type="submit" name="Send" value="Send">
    </form>
-</div>
+</div> -->
 
 
+<?php include '../app/views/chatbotView.php';?>
 
-<a href="../app/views/userCreation.php">User creation</a>
-<a href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
 
 <?php include '../app/views/_footer.php';?>
