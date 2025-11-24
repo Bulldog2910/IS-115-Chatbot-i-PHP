@@ -5,11 +5,10 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-session_start();
 include '_header.php';
 
 $errorMsg = array();
-$email = "elias@erkul.com";
+$email = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) 
     // Hent og rens input
