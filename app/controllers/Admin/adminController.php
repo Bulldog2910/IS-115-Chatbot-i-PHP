@@ -19,11 +19,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['identificatorTable'] == 'keyw
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['identificatorTable'] == 'question'){
     if(isset($_POST['Qtype'])){
         if($_POST['Qtype'] == 'editQ'){
-        /* require __DIR__ . '/' */
-    }
-    if($_POST['Qtype'] == 'addQ'){
-        require_once __DIR__ . '/addQController.php';
-    }
+         require __DIR__ . '/editQController.php';
+        }
+        if($_POST['Qtype'] == 'addQ'){
+            require_once __DIR__ . '/addQController.php';
+        }
     }
     include __DIR__ . '/../../views/admin/questionsForm.php'; 
 

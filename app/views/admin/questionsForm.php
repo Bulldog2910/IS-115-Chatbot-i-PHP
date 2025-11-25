@@ -1,8 +1,8 @@
 
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
-ID: <?php echo $_POST['identificatorId'] ?? ""?><br>
-Question description: <input name="QDesc" type="text" value="<?php echo $_POST['QDesc'] ?? ""?>"><br>
-Answer description: <input name="ADesc" type="text" value="<?php echo $_POST['ADesc'] ?? ""?>"><br>
+ID: <?php echo $_POST['identificatorId'] ?? "" ?> <input type="hidden" name="identificatorId" value="<?php echo $_POST['identificatorId'] ?? "" ?? $addQ->Qid ?>"><br>
+Question description: <input name="questionDescription" type="text" value="<?php echo $_POST['questionDescription'] ?? ""?>"><br>
+Answer description: <input name="questionAnswer" type="text" value="<?php echo $_POST['questionAnswer'] ?? ""?>"><br>
 Keyword 1: <input name="keyword1" type="text" value="<?php echo $_POST['keyword1'] ?? ""?>"><br>
 Keyword 2: <input name="keyword2" type="text" value="<?php echo $_POST['keyword2'] ?? ""?>"><br>
 Keyword 3: <input name="keyword3" type="text" value="<?php echo $_POST['keyword3'] ?? ""?>"><br>
