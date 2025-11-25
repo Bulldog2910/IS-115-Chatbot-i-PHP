@@ -6,55 +6,66 @@
 </style>
 <a href="../../public/Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
 <?php
-    include_once '_header.php';
-
-    // Sjekker at innlogget bruker har admin-rolle, ellers nektes tilgang
-    if ($_SESSION['role'] !== 'admin') {
-        header("Location: index.php?feil=Ikke_tilgang.");
-        exit;
-    }
-?>
-<?php
-if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['identificatorTable'] == 'keyword'){
-include __DIR__ . '/admin/keywordForm.php';
-    
-}
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-include __DIR__ . '/../config/db.php';
-
-
-$conn->select_db('FAQUiaChatbot');
-$stmt = $conn->prepare('SELECT * FROM questions');
-$stmt->execute();
-$resultQ = $stmt->get_result();
-
-$stmt = $conn->prepare('SELECT * FROM chatUser');
-$stmt->execute();
-$resultChat = $stmt->get_result();
-
-$stmt = $conn->prepare('SELECT * FROM keyWords');
-$stmt->execute();
-$resultKey = $stmt->get_result();
-
+require __DIR__ . '/../controllers/Admin/adminController.php';
 ?>
 <h1>Questions</h1>
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
+    <input type="hidden" name="identificatorTable" value="question">
+    <input type="hidden" name="identificatorQ" value="addQ">
+    <input type="submit" value="Add question">
+</form>
+    
 <table>
     <tr>
         <th>Question:</th>
         <th>Keyword1:</th>
         <th>Keyword2:</th>
         <th>Keyword3:</th>
+        <th>Keyword4:</th>
+        <th>Keyword5:</th>
+        <th>Keyword6:</th>
+        <th>Keyword7:</th>
+        <th>Keyword8:</th>
+        <th>Keyword9:</th>
+        <th>Keyword10:</th>
         <th>Category:</th>
     </tr>
 <?php while ($row = $resultQ->fetch_assoc()): ?>
     <tr>
         <td><?= $row['questionDescription'] ?></td>
+        <td><?= $row['questionAnswer'] ?></td>
         <td><?= $row['keyword1'] ?></td>
         <td><?= $row['keyword2'] ?></td>
         <td><?= $row['keyword3'] ?></td>
+        <td><?= $row['keyword4'] ?></td>
+        <td><?= $row['keyword5'] ?></td>
+        <td><?= $row['keyword6'] ?></td>
+        <td><?= $row['keyword7'] ?></td>
+        <td><?= $row['keyword8'] ?></td>
+        <td><?= $row['keyword9'] ?></td>
+        <td><?= $row['keyword10'] ?></td>
         <td><?= $row['category'] ?></td>
+        <td>
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
+                <input type="submit" value="Edit"> 
+                <input name="QDesc" type="hidden" value="<?php echo $row['questionDescription']?>">
+                <input name="ADesc" type="hidden" value="<?php echo $row['questionAnswer']?>">
+                <input name="keyword1" type="hidden" value="<?php echo $row['keyword1']?>">
+                <input name="keyword2" type="hidden" value="<?php echo $row['keyword2']?>">
+                <input name="keyword3" type="hidden" value="<?php echo $row['keyword3']?>">
+                <input name="keyword4" type="hidden" value="<?php echo $row['keyword4']?>">
+                <input name="keyword5" type="hidden" value="<?php echo $row['keyword5']?>">
+                <input name="keyword6" type="hidden" value="<?php echo $row['keyword6']?>">
+                <input name="keyword7" type="hidden" value="<?php echo $row['keyword7']?>">
+                <input name="keyword8" type="hidden" value="<?php echo $row['keyword8']?>">
+                <input name="keyword9" type="hidden" value="<?php echo $row['keyword9']?>">
+                <input name="keyword10" type="hidden" value="<?php echo $row['keyword10']?>">
+                <input name="category" type="hidden" value="<?php echo $row['category']?>">
+                <input name="identificatorId" type="hidden" value="<?php echo $row['questionId']?>">
+                <input name="identificatorTable" type="hidden" value="question">
+                <input type="submit" name="identificatorQ" value="editQ">
+            </form>
+        </td>
     </tr>
 <?php endwhile; ?>
 </table>
