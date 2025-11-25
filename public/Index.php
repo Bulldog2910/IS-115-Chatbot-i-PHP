@@ -49,7 +49,8 @@ mysqli_close($conn);
 
 
 
-<a href="../app/views/userCreation.php">User creation</a>
-<a href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
+<a class="button" href="../app/views/userCreation.php">User creation</a>
+<a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
+<a class="button" href="../app/views/admin.php">admin</a>
 
 <?php include '../app/views/_footer.php';?>
