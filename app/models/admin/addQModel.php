@@ -1,8 +1,8 @@
 <?php
 class addQModel {
     public $addQLog = [];
-    public $QDesc;
-    public $ADesc;
+    public $questionDescription;
+    public $questionAnswer;
     public $keywordArr = [];
     public $keywordIds = [];
     public $keyword1;

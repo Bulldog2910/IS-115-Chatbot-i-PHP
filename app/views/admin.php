@@ -53,7 +53,6 @@ require __DIR__ . '/../controllers/Admin/adminController.php';
                     for ($i = 1; $i <= 10; $i++) {
                         $fields[] = "keyword$i";
                     }
-                    $fields[] = "category";
 
                     foreach ($fields as $field) {
                         echo '<input type="hidden" name="'.$field.'" value="'.$row[$field].'">';

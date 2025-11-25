@@ -1,8 +1,8 @@
-<?php 
-class editQmodel {
+<?php
+class editQModel {
     public $addQLog = [];
-    public $QDesc;
-    public $ADesc;
+    public $questionDescription;
+    public $questionAnswer;
     public $keywordArr = [];
     public $keywordIds = [];
     public $keyword1;
@@ -15,26 +15,42 @@ class editQmodel {
     public $keyword8;
     public $keyword9;
     public $keyword10;
-    public $category;
+    public $Qid;
 
     public function __construct($postArr)
     {
         foreach ($this as $prop => $value) {
+
+            // Skip arrays
+            if (is_array($value)) continue;
+
             if (isset($postArr[$prop])) {
-                $this->$prop = strtolower(trim($postArr[$prop] ?? ''));
+
+                // IDs and text fields should not be lowercased
+                if ($prop === "Qid" || $prop === "questionDescription" || $prop === "questionAnswer") {
+                    $this->$prop = trim($postArr[$prop]);
+                } else {
+                    // keywords are allowed to be lowercased
+                    $this->$prop = strtolower(trim($postArr[$prop]));
+                }
             }
-        }
-        $this->keywordArr = [$this->keyword1, $this->keyword2, $this->keyword3, $this->keyword4, $this->keyword5, $this->keyword6, $this->keyword7, $this->keyword8, $this->keyword9, $this->keyword10];
-        $this->checkKeywordExist();
-        print_r($this->addQLog);
-        print_r($this->keywordArr);
     }
+        $this->Qid= intval($postArr['identificatorId']);
+    // Build keyword array
+        $this->keywordArr = [
+            $this->keyword1, $this->keyword2, $this->keyword3, $this->keyword4, $this->keyword5,
+            $this->keyword6, $this->keyword7, $this->keyword8, $this->keyword9, $this->keyword10
+        ];
+
+        $this->checkKeywordExist();
+}
 
 
     public function checkKeywordExist(){
         require __DIR__ . '/../../config/dbOOP.php';
         $conn->select_db('FAQUiaChatbot');
 
+        $bind = null;
         $stmt = $conn->prepare('SELECT * FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
 
