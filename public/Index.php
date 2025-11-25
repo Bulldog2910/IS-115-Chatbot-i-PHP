@@ -26,7 +26,7 @@ include __DIR__ . '/../app/views/_header.php';
 </div> -->
 
 
-<?php include '../app/views/chatbotView.php';?>
+<?php include __DIR__ . '/../app/views/chatbotView.php';?>
 
 
-<?php include '../app/views/_footer.php';?>
+<?php include __DIR__ . '/../app/views/_footer.php';?>
