@@ -13,10 +13,9 @@ Keyword 7: <input name="keyword7" type="text" value="<?php echo $_POST['keyword7
 Keyword 8: <input name="keyword8" type="text" value="<?php echo $_POST['keyword8'] ?? ""?>"><br>
 Keyword 9: <input name="keyword9" type="text" value="<?php echo $_POST['keyword9'] ?? ""?>"><br>
 Keyword 10: <input name="keyword10" type="text" value="<?php echo $_POST['keyword10'] ?? ""?>"><br>
-Category: <input name="category" type="text" value="<?php echo $_POST['category'] ?? ""?>"><br>
 <input name="identificatorTable" type="hidden" value="question">
 <!-- <input type="hidden" name="Qtype" value="<?php echo $_POST['identificatorQ']?>"> -->
 <input type="submit" name="Qtype" value="addQ"> 
 <input type="submit" name="Qtype" value="editQ">          
-<?php echo $_POST['identificatorQ']?>      
+<?php echo $_POST['identificatorQ'] ?? ""?>      
 </form>

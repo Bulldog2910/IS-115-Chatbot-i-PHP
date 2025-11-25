@@ -18,6 +18,7 @@ require __DIR__ . '/../controllers/Admin/adminController.php';
 <table>
     <tr>
         <th>Question:</th>
+        <th>Answer:</th>
         <th>Keyword1:</th>
         <th>Keyword2:</th>
         <th>Keyword3:</th>
@@ -28,7 +29,7 @@ require __DIR__ . '/../controllers/Admin/adminController.php';
         <th>Keyword8:</th>
         <th>Keyword9:</th>
         <th>Keyword10:</th>
-        <th>Category:</th>
+
     </tr>
 <?php while ($row = $resultQ->fetch_assoc()): ?>
     <tr>
@@ -44,26 +45,23 @@ require __DIR__ . '/../controllers/Admin/adminController.php';
         <td><?= $row['keyword8'] ?></td>
         <td><?= $row['keyword9'] ?></td>
         <td><?= $row['keyword10'] ?></td>
-        <td><?= $row['category'] ?></td>
         <td>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
                 <input type="submit" value="Edit"> 
-                <input name="QDesc" type="hidden" value="<?php echo $row['questionDescription']?>">
-                <input name="ADesc" type="hidden" value="<?php echo $row['questionAnswer']?>">
-                <input name="keyword1" type="hidden" value="<?php echo $row['keyword1']?>">
-                <input name="keyword2" type="hidden" value="<?php echo $row['keyword2']?>">
-                <input name="keyword3" type="hidden" value="<?php echo $row['keyword3']?>">
-                <input name="keyword4" type="hidden" value="<?php echo $row['keyword4']?>">
-                <input name="keyword5" type="hidden" value="<?php echo $row['keyword5']?>">
-                <input name="keyword6" type="hidden" value="<?php echo $row['keyword6']?>">
-                <input name="keyword7" type="hidden" value="<?php echo $row['keyword7']?>">
-                <input name="keyword8" type="hidden" value="<?php echo $row['keyword8']?>">
-                <input name="keyword9" type="hidden" value="<?php echo $row['keyword9']?>">
-                <input name="keyword10" type="hidden" value="<?php echo $row['keyword10']?>">
-                <input name="category" type="hidden" value="<?php echo $row['category']?>">
+                <?php
+                    $fields = ['questionDescription', 'questionAnswer'];
+                    for ($i = 1; $i <= 10; $i++) {
+                        $fields[] = "keyword$i";
+                    }
+                    $fields[] = "category";
+
+                    foreach ($fields as $field) {
+                        echo '<input type="hidden" name="'.$field.'" value="'.$row[$field].'">';
+                    }
+                ?>
                 <input name="identificatorId" type="hidden" value="<?php echo $row['questionId']?>">
                 <input name="identificatorTable" type="hidden" value="question">
-                <input type="submit" name="identificatorQ" value="editQ">
+                <input type="hidden" name="identificatorQ" value="editQ">
             </form>
         </td>
     </tr>

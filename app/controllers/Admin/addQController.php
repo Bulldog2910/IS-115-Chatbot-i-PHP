@@ -12,8 +12,22 @@ $stmt = $conn->prepare("INSERT INTO questions
     (questionDescription, questionAnswer, keyword1, keyword2, keyword3, keyword4, keyword5, keyword6, keyword7, keyword8, keyword9, keyword10, category)
     VALUES 
     (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param('sssssssssssss', $addQ->QDesc, $addQ->ADesc, $addQ->keyword1, $addQ->keyword2, $addQ->keyword3, $addQ->keyword4, $addQ->keyword5, $addQ->keyword6, $addQ->keyword7, $addQ->keyword8, $addQ->keyword9, $addQ->keyword10, $addQ->category);
-if($stmt->execute()){
+$stmt->bind_param(
+    'ssiiiiiiiiiis', 
+    $addQ->QDesc, 
+    $addQ->ADesc, 
+    $addQ->keywordIds[0], 
+    $addQ->keywordIds[1], 
+    $addQ->keywordIds[2], 
+    $addQ->keywordIds[3], 
+    $addQ->keywordIds[4], 
+    $addQ->keywordIds[5], 
+    $addQ->keywordIds[6], 
+    $addQ->keywordIds[7], 
+    $addQ->keywordIds[8], 
+    $addQ->keywordIds[9], 
+    $addQ->category
+);if($stmt->execute()){
     $log[] = 'Inserted correctly';
 }else{
     $err['DB-03'] = 'Error inserting Question: ' . $stmt->error;

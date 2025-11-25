@@ -1,5 +1,5 @@
-<?php
-class addQModel {
+<?php 
+class editQmodel {
     public $addQLog = [];
     public $QDesc;
     public $ADesc;

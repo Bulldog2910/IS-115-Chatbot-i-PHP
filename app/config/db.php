@@ -5,12 +5,15 @@ $serverName = "localhost";
 $username = "root";
 $password = "";
 
-// Create OO connection
-$conn = new mysqli($serverName, $username, $password);
+// Create connection
+$conn = mysqli_connect($serverName, $username, $password);
 
 // Check connection
-if ($conn->connect_error) {
-    $errors[] = "Connection failed: " . $conn->connect_error;
-    die();
+if (!$conn) {
+    $errors[] = "Connection failed: " . mysqli_connect_error();
+    die(); // stop script but do not echo
 }
+
+// Connection success is ignored (no echo)
 ?>
+
