@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ?>
 
 <?php
-include '_header.php';
+include __DIR__ . '/_header.php';
 
 $errorMsg = array();
 $email = "";
@@ -93,7 +93,9 @@ if (!count($errorMsg)) {
 
         <button type="submit" name="login" class="button">Logg inn</button>
     </form>
-    <a class="button" href="./userCreation.php">User creation</a>
+    <a href="./userCreation.php">
+        <button class="button" type="button">Registrér</button>
+    </a>
 </div>
 
 <?php include '_footer.php'; ?>

@@ -36,4 +36,43 @@ VALUES
 ('Internasjonalt og Utveksling'), -- utveksling og internasjonale spørsmål
 ('Helse og Rådgivning');    -- psykisk helse, rådgivning
 
+-- ============================
+-- Insert questions
+-- ============================
+INSERT INTO questions (
+    questionDescription, questionAnswer,
+    keyword1, keyword2, keyword3,
+    category
+) VALUES
+(
+    'Hvordan booker jeg tid, til intervju i IS-115?',
+    'Du må booke tid igjennom BookIT',
+    1, 2, 3, 4, 5
+    2
+),
+(
+    'Hva gjør jeg hvis jeg har glemt passordet mitt?',
+    'Trykk på ‘‘Glemt passord’’ på innloggingssiden og følg instruksjonene for å lage et nytt passord.',
+    6, 7,
+    2
+),
+(
+    'Hvordan kontakter jeg kundestøtte?',
+    'Du kan kontakte support via kontaktskjemaet på nettsiden eller på e-post support@firma.no.',
+    1, 8, 9,
+    2
+);
 
+-- ============================
+-- Insert keyWords
+-- ============================
+INSERT INTO keyWords (keyword) VALUES
+('hvordan'),
+('booke'),
+('tid'),
+('intervju'),
+('IS-115'),
+('glemt'),
+('passord'),
+('kontakte'),
+('Kundestøtte');

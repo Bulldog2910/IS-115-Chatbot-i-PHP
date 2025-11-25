@@ -61,9 +61,12 @@
         <ul>
             <a href="../app/views/userCreation.php">User creation</a>
             <a href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
-            <div class="user-info">
-            <form method="POST" style="display: inline;">
-                <input type="submit" name="logout" class="button" value="Logg ut">
-            </form>
+            <?php if (isset($_SESSION['username'])): ?>
+                <div class="user-info">
+                    <form method="POST" style="display: inline;">
+                        <input type="submit" name="logout" class="button" value="Logg ut">
+                    </form>
+                </div>
+            <?php endif; ?>
         </ul>
     </nav>

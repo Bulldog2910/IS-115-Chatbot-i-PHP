@@ -1,4 +1,10 @@
-/* Entire document */
+:root {
+    --uia-red: #c80f2e;
+    --off-white: #fffcfc;
+}
+
+
+/* Hele dokumentet */
 html {
   scroll-behavior: smooth;   /* Smooth scrolling when navigating anchors/links */
   margin: 0;                 /* Remove default margin */
@@ -7,34 +13,32 @@ html {
 
 /* Background and centering */
 body {
-  background-color: rgb(162, 210, 255); /* Light blue background */
-  margin: 0;                            /* Remove default margin */
-  padding: 0;                           /* Remove default padding */
-  height: 100vh;                        /* Full viewport height */
-  display: flex;                        /* Use flexbox layout */
-  justify-content: center;              /* Center horizontally */
-  align-items: flex-start;              /* Align items at the top vertically */
-  font-family: Arial, sans-serif;       /* Set font family */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background-color: var(--off-white);
 }
 
 /* Login container */
 .login-container {
-  background-color: rgb(189, 224, 254); /* Slightly lighter blue box */
-  padding: 30px;                        /* Inner spacing */
-  border-radius: 10px;                  /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow around the box */
-  margin-top: 40px;                     /* Space above the container */
-  width: 100%;                          /* Full width by default */
-  max-width: 400px;                     /* Limit maximum width */
-  text-align: center;                   /* Center text inside container */
+  background-color: white;; /* Lysere blå boks */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
 /* Heading inside login container */
 .login-container h2 {
-  font-size: 48px;                      /* Large font size */
-  font-weight: bold;                    /* Bold text */
-  color: rgb(255, 175, 204);            /* Pink heading color */
-  margin-bottom: 20px;                  /* Space below heading */
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--uia-red); 
+  margin-bottom: 20px;
 }
 
 /* Error messages */
@@ -63,16 +67,17 @@ input[type="password"] {
 
 /* Button styling */
 .button {
-  width: 100%;                          /* Full width button */
-  padding: 10px;                        /* Inner spacing */
-  background-color: rgb(255, 175, 204); /* Pink background */
-  color: white;                         /* White text */
-  border: none;                         /* Remove default border */
-  border-radius: 4px;                   /* Rounded corners */
-  cursor: pointer;                      /* Pointer cursor on hover */
-  font-weight: bold;                    /* Bold text */
+  width: 100%;
+  padding: 10px;
+  background-color: var(--uia-red); /* Rosa knapp */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .button:hover {
-  background-color: rgb(240, 150, 190); /* Darker pink when hovered */
+  background-color: #c80f2e; /* Mørkere rosa ved hover */
 }
