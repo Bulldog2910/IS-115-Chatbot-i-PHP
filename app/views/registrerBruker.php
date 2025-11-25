@@ -1,8 +1,8 @@
 <?php
-// registrerBruker.php (view + controller)
+
+// Include the registration controller which handles form submission and validation
 include __DIR__ . '/../controllers/registrerBrukerController.php';
 
-// Controlleren setter nå $firstName, $lastName, $userpassword, $mail, $username og $feil
 ?>
 <!DOCTYPE html>
 <html lang="no">
@@ -17,15 +17,16 @@ include __DIR__ . '/../controllers/registrerBrukerController.php';
 <?php if (!empty($feil)): ?>
     <ul style="color:red;">
         <?php foreach ($feil as $melding): ?>
-            <li><?= htmlspecialchars($melding) ?></li>
+            <li><?= htmlspecialchars($melding) ?></li> <!-- Display each error message -->
         <?php endforeach; ?>
     </ul>
 <?php endif; ?>
 
 <?php if (!empty($success ?? '')): ?>
-    <p style="color:green;"><?= htmlspecialchars($success) ?></p>
+    <p style="color:green;"><?= htmlspecialchars($success) ?></p> <!-- Display success message -->
 <?php endif; ?>
 
+<!-- Registration Form -->
 <form method="post" action="">
     <label for="firstName">Fornavn:</label><br>
     <input type="text" id="firstName" name="firstName" value="<?= htmlspecialchars($firstName) ?>"><br><br>
