@@ -1,0 +1,81 @@
+:root {
+    --uia-red: #c80f2e;       /* Primærfarge */
+    --off-white: #fffcfc;     /* Bakgrunnsfarge */
+    --gray-border: #ccc;      /* Standard grå kant */
+}
+
+/* Hele dokumentet */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--off-white);
+    display: flex;
+    flex-direction: column;   /* Kolonne, ikke rad */
+    justify-content: flex-start;
+    align-items: center;      /* Sentrerer horisontalt */
+    min-height: 100vh;
+}
+
+/* Overskrift */
+h1 {
+    color: var(--uia-red);
+    margin-top: 40px;
+    font-size: 36px;
+    text-align: center;
+}
+
+/* Feilmeldinger */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    color: red;
+    text-align: left;
+}
+
+/* Skjema-container */
+form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;  /* Kort margin under h1 */
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Input-felter */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Submit-knapp */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--uia-red);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #a00c24; /* litt mørkere ved hover */
+}
