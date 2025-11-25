@@ -8,14 +8,14 @@
     $current = basename($_SERVER['PHP_SELF']);
 
     if (!isset($_SESSION['user_id']) && $current !== 'login.php') {
-        header("Location: /chatbot/IS-115-Chatbot-i-PHP/app/views/login.php");
+        header("Location: ../public/login.php");
         exit();
     }
 
     // Handle logout
     if (isset($_POST['logout'])) {
         session_destroy();
-        header("Location: /chatbot/IS-115-Chatbot-i-PHP/app/views/login.php");
+        header("Location: ../public/login.php");
         exit();
     }
 
@@ -38,7 +38,7 @@
         if (time() - $_SESSION['last_active'] > $timeout) {
             session_unset();
             session_destroy();
-            header("Location: index.php?feil=Session expired");
+            header("Location: ../public/login.php");
             exit;
         }
     }
