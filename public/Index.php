@@ -27,7 +27,7 @@ include __DIR__ . '/../app/controllers/dbController.php';
 mysqli_close($conn);
 ?>
 
-<div class="chatty">
+<!-- <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>
 
    <div class="user-info">
@@ -65,10 +65,14 @@ mysqli_close($conn);
       // Submit button to send the message
       <input type="submit" name="Send" value="Send">
    </form>
-</div>
+</div> -->
 
-// Link to user creation page
-<a href="../app//views/userCreation.php">User creation</a>
+// Links 
+<?php include '../app/views/chatbotView.php';?>
+
+<a class="button" href="../app/views/userCreation.php">User creation</a>
+<a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
+<a class="button" href="../app/views/admin.php">admin</a>
 
 // Include footer file
 <?php include '../app/views/_footer.php';?>

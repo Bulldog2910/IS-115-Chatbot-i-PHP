@@ -1,4 +1,6 @@
 <?php
+$errors = []; // collect errors
+
 $serverName = "localhost";
 $username = "root";
 $password = "";
@@ -8,10 +10,10 @@ $conn = mysqli_connect($serverName, $username, $password);
 
 // Check connection
 if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+    $errors[] = "Connection failed: " . mysqli_connect_error();
+    die(); // stop script but do not echo
 }
-echo "Connection to database succesfull";
+
+// Connection success is ignored (no echo)
 ?>
-
-
 

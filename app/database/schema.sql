@@ -12,7 +12,8 @@ CREATE TABLE chatUser (
     lastName VARCHAR(60),
     userpassword VARCHAR(255) NOT NULL,
     mail VARCHAR(60) NOT NULL,
-    username VARCHAR(40) NOT NULL
+    username VARCHAR(40) NOT NULL,
+    role ENUM('standard', 'admin') DEFAULT 'standard'
 );
 
 -- keyWords table
@@ -30,14 +31,29 @@ CREATE TABLE category (
 -- questions table
 CREATE TABLE questions (
     questionId INT AUTO_INCREMENT PRIMARY KEY,
-    questionDescription VARCHAR(100) NOT NULL,
+    questionDescription VARCHAR(400) NOT NULL,
+    questionAnswer VARCHAR(400) NOT NULL,
     keyword1 INT,
     keyword2 INT,
     keyword3 INT,
+    keyword4 INT,
+    keyword5 INT,
+    keyword6 INT,
+    keyword7 INT,
+    keyword8 INT,
+    keyword9 INT,
+    keyword10 INT,
     category INT,
     FOREIGN KEY (keyword1) REFERENCES keyWords(keywordId),
     FOREIGN KEY (keyword2) REFERENCES keyWords(keywordId),
     FOREIGN KEY (keyword3) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword4) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword5) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword6) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword7) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword8) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword9) REFERENCES keyWords(keywordId),
+    FOREIGN KEY (keyword10) REFERENCES keyWords(keywordId),
     FOREIGN KEY (category) REFERENCES category(categoryId)
 );
 
