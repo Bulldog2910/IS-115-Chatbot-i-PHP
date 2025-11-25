@@ -29,8 +29,8 @@
     include __DIR__ . '/../controllers/dbController.php';
     mysqli_close($conn);
 
-    // Session timeout (1 hour i development)
-    $timeout = 3600;
+    // Session timeout (10 minutes)
+    $timeout = 6000;
 
     // Check last activity timestamp
     if (isset($_SESSION['last_active'])) {
@@ -61,6 +61,11 @@
         <ul>
             <a href="../app/views/userCreation.php">User creation</a>
             <a href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
+            <a href="../app/views/admin.php">Admin</a>
+            <div class="user-info">
+            <form method="POST" style="display: inline;">
+                <input type="submit" name="logout" class="button" value="Logg ut">
+            </form>
             <?php if (isset($_SESSION['username'])): ?>
                 <div class="user-info">
                     <form method="POST" style="display: inline;">
