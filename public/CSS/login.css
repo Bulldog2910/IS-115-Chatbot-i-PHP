@@ -6,12 +6,12 @@
 
 /* Hele dokumentet */
 html {
-  scroll-behavior: smooth;
-  margin: 0;
-  padding: 0;
+  scroll-behavior: smooth;   /* Smooth scrolling when navigating anchors/links */
+  margin: 0;                 /* Remove default margin */
+  padding: 0;                /* Remove default padding */
 }
 
-/* Bakgrunn og sentrering */
+/* Background and centering */
 body {
   display: flex;
   justify-content: flex-start;
@@ -21,7 +21,7 @@ body {
   background-color: var(--off-white);
 }
 
-/* Container for innlogging */
+/* Login container */
 .login-container {
   background-color: white;; /* Lysere blå boks */
   padding: 30px;
@@ -33,7 +33,7 @@ body {
   text-align: center;
 }
 
-/* Overskrift */
+/* Heading inside login container */
 .login-container h2 {
   font-size: 48px;
   font-weight: bold;
@@ -41,31 +41,31 @@ body {
   margin-bottom: 20px;
 }
 
-/* Feilmeldinger */
+/* Error messages */
 .error-messages ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px 0;
-  color: red;
-  text-align: left;
+  list-style: none;                     /* Remove bullet points */
+  padding: 0;                           /* Remove default padding */
+  margin: 0 0 20px 0;                   /* Add bottom margin */
+  color: red;                           /* Red text for errors */
+  text-align: left;                     /* Align error text to the left */
 }
 
-/* Skjemaelementer */
+/* Form elements */
 .form-group {
-  margin-bottom: 15px;
-  text-align: left;
+  margin-bottom: 15px;                  /* Space below each form group */
+  text-align: left;                     /* Align labels/inputs to the left */
 }
 
 input[type="email"],
 input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 100%;                          /* Full width inputs */
+  padding: 10px;                        /* Inner spacing */
+  margin-top: 5px;                      /* Small space above input */
+  border: 1px solid #ccc;               /* Light gray border */
+  border-radius: 4px;                   /* Slightly rounded corners */
 }
 
-/* Knapp */
+/* Button styling */
 .button {
   width: 100%;
   padding: 10px;
