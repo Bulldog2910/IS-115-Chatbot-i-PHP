@@ -1,33 +1,11 @@
 <?php 
-session_start();
-
-// Sjekk om bruker er logget inn
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../app/views/login.php");
-    exit();
-}
-// Håndter logout
-if (isset($_POST['logout'])) {
-    session_destroy();
-    header("Location: ../app/views/login.php");
-    exit();
-}
-// Get values from session if they exist
-$message = $_SESSION['message'] ?? '';
-$output = $_SESSION['output'] ?? '';
-$error = $_SESSION['error'] ?? [];
-
 // Clear session values after displaying
 unset($_SESSION['message'], $_SESSION['output'], $_SESSION['error']);
 include __DIR__ . '/../app/views/_header.php';
 
-// includes code from db.php to start connection to database
-include __DIR__ . '/../app/config/db.php';
-include __DIR__ . '/../app/controllers/dbController.php';
-mysqli_close($conn);
 ?>
 
-<div class="chatty">
+<!-- <div class="chatty">
    <h1 id="overskrift">Chatbot</h1>
 
    <div class="user-info">
@@ -45,9 +23,10 @@ mysqli_close($conn);
       Output : <output><?php echo htmlspecialchars($output); ?></output><br>
       <input type="submit" name="Send" value="Send">
    </form>
-</div>
+</div> -->
 
 
+<?php include '../app/views/chatbotView.php';?>
 
 <a class="button" href="../app/views/userCreation.php">User creation</a>
 <a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>

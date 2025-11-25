@@ -1,20 +1,33 @@
-/* Applies to the entire HTML document */
-.html {
-  scroll-behavior: smooth;
+:root {
+  --primary-coral: #FF6B6B;
+  --secondary-mint: #4ECDC4;
+  --warm-white: #FFF8F3;
+  --soft-gray: #95A99C;
+  --deep-charcoal: #2A2A2A;
+  --accent-yellow: #FFE66D;
+  --message-bg: #F7F3F0;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* Applies to the entire website */
 body {
-  background-color: rgb( 162, 210, 255 ); /* Fixes light blue background across the page */
-  margin: 0; /* Removes default margin */
-  padding: 0; /* Removes default padding */
-  height: 100vh; /* Fixes full viewport height*/
-  display: flex; /* Enables flexbox layout */
-  justify-content: center; /*Horizontally centers the content */
-  align-items: flex-start; /* Aligns items to the top */
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm-white);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+
 }
+
 /* Styles the chatbot heading making it large and visible */
 #overskrift {
   text-align: center; /* Centers the text */

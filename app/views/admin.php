@@ -1,10 +1,19 @@
+
 <style>
     th, td, tr, table {
         border: black solid 2px;
     }
 </style>
 <a href="../../public/Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
+<?php
+    include_once '_header.php';
 
+    // Sjekker at innlogget bruker har admin-rolle, ellers nektes tilgang
+    if ($_SESSION['role'] !== 'admin') {
+        header("Location: index.php?feil=Ikke_tilgang.");
+        exit;
+    }
+?>
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['identificatorTable'] == 'keyword'){
 include __DIR__ . '/admin/keywordForm.php';
@@ -92,3 +101,5 @@ $resultKey = $stmt->get_result();
     </tr>
 <?php endwhile; ?>
 </table>
+
+
