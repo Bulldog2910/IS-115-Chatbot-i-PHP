@@ -1,41 +1,48 @@
+<?php
+// registrerBruker.php (view + controller)
+include __DIR__ . '/../controllers/registrerBrukerController.php';
+
+// Controlleren setter nå $firstName, $lastName, $userpassword, $mail, $username og $feil
+?>
 <!DOCTYPE html>
 <html lang="no">
 <head>
-    <?php
-
-$navn  = $_POST['navn']  ?? '';
-$mobil = $_POST['mobil'] ?? '';
-$epost = $_POST['epost'] ?? '';
-
-
-$feil = $feil ?? [];
-?>
     <meta charset="UTF-8">
     <title>Registrer ny bruker</title>
-  <link rel="stylesheet" href="../../public/css/registrerBruker.css">
+    <link rel="stylesheet" href="../../public/css/registrerBruker.css">
 </head>
 <body>
-    <h1>Registrer ny bruker</h1>
+<h1>Registrer ny bruker</h1>
 
-    <?php if (!empty($feil)): ?>
-        <ul style="color:red;">
-            <?php foreach ($feil as $melding): ?>
-                <li><?= htmlspecialchars($melding) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+<?php if (!empty($feil)): ?>
+    <ul style="color:red;">
+        <?php foreach ($feil as $melding): ?>
+            <li><?= htmlspecialchars($melding) ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
-    <form method="post" action="">
-        <label for="navn">Navn:</label><br>
-        <input type="text" id="navn" name="navn" value="<?= htmlspecialchars($navn) ?>"><br><br>
+<?php if (!empty($success ?? '')): ?>
+    <p style="color:green;"><?= htmlspecialchars($success) ?></p>
+<?php endif; ?>
 
-        <label for="mobil">Mobilnummer:</label><br>
-        <input type="text" id="mobil" name="mobil" value="<?= htmlspecialchars($mobil) ?>"><br><br>
+<form method="post" action="">
+    <label for="firstName">Fornavn:</label><br>
+    <input type="text" id="firstName" name="firstName" value="<?= htmlspecialchars($firstName) ?>"><br><br>
 
-        <label for="epost">E-post:</label><br>
-        <input type="text" id="epost" name="epost" value="<?= htmlspecialchars($epost) ?>"><br><br>
+    <label for="lastName">Etternavn:</label><br>
+    <input type="text" id="lastName" name="lastName" value="<?= htmlspecialchars($lastName) ?>"><br><br>
 
-        <input type="submit" value="Registrer">
-    </form>
+    <label for="userpassword">Passord:</label><br>  
+    <input type="password" id="userpassword" name="userpassword" value="<?= htmlspecialchars($userpassword) ?>"><br><br>
+
+    <label for="mail">E-post:</label><br>
+    <input type="text" id="mail" name="mail" value="<?= htmlspecialchars($mail) ?>"><br><br>
+
+    <label for="username">Brukernavn:</label><br>
+    <input type="text" id="username" name="username" value="<?= htmlspecialchars($username) ?>"><br><br>
+
+    <input type="submit" name="registrer" value="Registrer">
+</form>
 </body>
 </html>

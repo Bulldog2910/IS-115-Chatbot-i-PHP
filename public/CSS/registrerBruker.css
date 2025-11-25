@@ -79,3 +79,18 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #a00c24; /* litt mørkere ved hover */
 }
+
+.button {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: var(--uia-red);
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #a00c24;
+}

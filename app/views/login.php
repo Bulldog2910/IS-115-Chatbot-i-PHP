@@ -92,10 +92,9 @@ if (!count($errorMsg)) {
         </div>
 
         <button type="submit" name="login" class="button">Logg inn</button>
+        <a href="./registrerBruker.php" class="button" style="display: block; text-decoration: none; text-align: center;">Registrér</a>
     </form>
-    <a href="./userCreation.php">
-        <button class="button" type="button">Registrér</button>
-    </a>
+
 </div>
 
 <?php include '_footer.php'; ?>
