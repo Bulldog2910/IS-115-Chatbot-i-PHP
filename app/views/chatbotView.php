@@ -23,13 +23,21 @@
                 </div>
             </div>
         </div>
-        <form class="input-area" 
-            action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
-            method="POST">
+        <div>
+            <?php 
+            if(isset($_POST['ChatbotQ'])){
+                foreach($chatbot->QArr as $QAArr){
+                        echo "Question: $QAArr[0]<br> Answer: $QAArr[1]<br><br>";
+                            
+                        }
+                } 
+            ?>
+    </div>
+        <form class="input-area" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <div class="input-wrapper">
                 <input type="text" class="message-input" name="question" placeholder="Skriv din melding..." required>
             </div>
-            <button class="send-button" type="submit">
+            <button class="send-button" name="ChatbotQ" type="submit">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M22 2L11 13"></path>
                     <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
@@ -39,3 +47,4 @@
         </form>
         </div>
     </div>
+

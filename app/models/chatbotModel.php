@@ -1,19 +1,21 @@
 <?php 
 
 class chatbotModel{
-    private $keywordArr;   // Array of matched keyword IDs extracted from user input
-    private $QArr;         // Array of matching question rows from the database
+    public $keywordArr;   // IDs of matched keywords
+    public $QArr;         // Questions matched to these keywords
 
 
     function __construct($Q)
     {
-        /**
-         * Constructor receives $Q, expected to be $_POST or an array containing 'question'.
-         * Step 1: Extract all keyword IDs from the question text.
-         * Step 2: Fetch all stored questions that contain at least one of these keyword IDs.
-         */
-        $this->keywordArr = $this->getKeywordArr($Q);
-        $this->QArr = $this->getQArr();
+        $this->keywordArr = $this->getKeywordArr($Q);   // extract keyword IDs from input
+        if($this->keywordArr === false){
+            $this->QArr = "Found no keywords in the question";
+        } else{
+                $this->QArr = $this->getQArr();  // fetch matching questions
+        }
+        print_r($this->keywordArr);
+        print_r($this->QArr);
+                       
     }
 
     public function getQArr()
@@ -32,39 +34,23 @@ class chatbotModel{
         include __DIR__ . '/../config/db.php';
         mysqli_select_db($conn, 'FAQUiaChatbot');
 
-        $stmt = $conn->prepare('
-            SELECT questionDescription, questionId 
-            FROM questions 
-            WHERE keyword1 = ? OR keyword2 = ? OR keyword3 = ?
-        ');
-
-        // Bind 3 integer parameters. NOTE: the same variable is reused and updated in the loop.
-        $stmt->bind_param('iii', $possibleKey, $possibleKey, $possibleKey);
-
+        // Query questions where any keyword column matches
+        $stmt = $conn->prepare('SELECT * FROM questions WHERE keyword1 = ? OR keyword2 = ? OR keyword3 = ? OR keyword4 = ? OR keyword5 = ? OR keyword6 = ? OR keyword7 = ? OR keyword8 = ? OR keyword9 = ? OR keyword10 = ?');
         $Arr = [];
         
         // Loop through all discovered keyword IDs
         foreach($this->keywordArr as $key)
         {
-            // Update the parameter before executing
-            $possibleKey = $key;
+            $stmt->bind_param('iiiiiiiiii', $key, $key, $key, $key, $key, $key, $key, $key, $key, $key);
 
-            // Run the search query
             $stmt->execute();
-            $stmt->store_result();
+            $result = $stmt->get_result();
 
-            // Bind result columns
-            $stmt->bind_result($question, $questionId);
-            
-            // If any row matches, store it
-            if($stmt->fetch())
-            {
-                /**
-                 * Use questionId as key to prevent duplicates.
-                 * This means if two keywords match the same question,
-                 * it only appears once in the output.
-                 */
-                $Arr[$questionId] = $question;
+            while($row = $result->fetch_assoc()) {
+                $Arr[$row['questionId']] = [
+                    $row['questionDescription'],
+                    $row['questionAnswer']
+                ];
             }
         }
 
