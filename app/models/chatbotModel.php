@@ -1,14 +1,21 @@
 <?php 
 
 class chatbotModel{
-    private $keywordArr;   // IDs of matched keywords
-    private $QArr;         // Questions matched to these keywords
+    public $keywordArr;   // IDs of matched keywords
+    public $QArr;         // Questions matched to these keywords
 
 
     function __construct($Q)
     {
         $this->keywordArr = $this->getKeywordArr($Q);   // extract keyword IDs from input
-        $this->QArr = $this->getQArr();                 // fetch matching questions
+        if($this->keywordArr === false){
+            $this->QArr = "Found no keywords in the question";
+        } else{
+                $this->QArr = $this->getQArr();  // fetch matching questions
+        }
+        print_r($this->keywordArr);
+        print_r($this->QArr);
+                       
     }
 
     public function getQArr()
@@ -17,22 +24,22 @@ class chatbotModel{
         mysqli_select_db($conn, 'FAQUiaChatbot');
 
         // Query questions where any keyword column matches
-        $stmt = $conn->prepare('SELECT questionDescription, questionId FROM questions WHERE keyword1 = ? OR keyword2 = ? OR keyword3 = ?');
-        $stmt->bind_param('iii', $possiblekey, $possibleKey, $possibleKey);
-
+        $stmt = $conn->prepare('SELECT * FROM questions WHERE keyword1 = ? OR keyword2 = ? OR keyword3 = ? OR keyword4 = ? OR keyword5 = ? OR keyword6 = ? OR keyword7 = ? OR keyword8 = ? OR keyword9 = ? OR keyword10 = ?');
         $Arr = [];
         
         // Check each keyword against the database
         foreach($this->keywordArr as $key)
         {
-            $possibleKey = $key;
+            $stmt->bind_param('iiiiiiiiii', $key, $key, $key, $key, $key, $key, $key, $key, $key, $key);
+
             $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($question, $questionId );
-            
-            if($stmt->fetch())     // store match
-            {
-                $Arr[$questionId] = $question;
+            $result = $stmt->get_result();
+
+            while($row = $result->fetch_assoc()) {
+                $Arr[$row['questionId']] = [
+                    $row['questionDescription'],
+                    $row['questionAnswer']
+                ];
             }
 
         }
