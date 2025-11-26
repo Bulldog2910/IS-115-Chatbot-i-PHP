@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="./CSS/chatbot.css">
+<link rel="stylesheet" href="./CSS/chatbot.css?v=<?php echo time(); ?>">
 
  <div class="chat-container">
         <header class="chat-header">
@@ -22,17 +22,20 @@
                     <button class="quick-action">Hvilke aktiviteter finnes?</button>
                 </div>
             </div>
-        </div>
-        <div>
-            <?php 
-            if(isset($_POST['ChatbotQ'])){
-                foreach($chatbot->QArr as $QAArr){
-                        echo "Question: $QAArr[0]<br> Answer: $QAArr[1]<br><br>";
-                            
+            <div id="qa-container" class="qa-container">
+                <?php 
+                    if(isset($_SESSION['chatbotLog'])){
+                        foreach($chatbotLog as $QAArr){
+                            echo "<div class='qa-item'>";
+                            echo "<p class='question'>Spørsmål: $QAArr[0]</p>";
+                            echo "<p class='answer'>Svar: $QAArr[1]</p>";
+                            echo "</div>";
                         }
-                } 
-            ?>
-    </div>
+                    } 
+                ?>
+            </div>
+        </div>
+        
         <form class="input-area" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <div class="input-wrapper">
                 <input type="text" class="message-input" name="question" placeholder="Skriv din melding..." required>
@@ -47,4 +50,8 @@
         </form>
         </div>
     </div>
+    <script>
+        const container = document.getElementById('qa-container');
+        container.scrollTop = container.scrollHeight;
+    </script>
 
