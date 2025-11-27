@@ -3,16 +3,18 @@
 class chatbotModel{
     public $keywordArr;   // IDs of matched keywords
     public $QArr;         // Questions matched to these keywords
+    public $chatbotLog;
 
 
     function __construct($Q)
     {
         $this->keywordArr = $this->getKeywordArr($Q);   // extract keyword IDs from input
-        if($this->keywordArr === false){
+        if($this->keywordArr == []){
             $this->QArr = "Found no keywords in the question";
         } else{
                 $this->QArr = $this->getQArr();  // fetch matching questions
         }
+
 
                        
     }
@@ -30,7 +32,7 @@ class chatbotModel{
          *  - Execute the statement repeatedly, once for each keyword.
          */
 
-        include __DIR__ . '/../config/db.php';
+        include __DIR__ . '/../../config/db.php';
         mysqli_select_db($conn, 'FAQUiaChatbot');
 
         // Query questions where any keyword column matches
@@ -91,13 +93,13 @@ private function getKeywordArr($Q)
 
     // Split input into individual words separated by spaces
     // Example: "how do i book interview" → ["how", "do", "i", "book", "interview"]
-    $inputArr = explode(" ", $lowerCaseInput);
+    $inputArr = preg_split("/[\s\.,!]+/", $lowerCaseInput, -1, PREG_SPLIT_NO_EMPTY);;
 
     // Will hold ALL matched keyword IDs
     $keywordArr = [];
 
     // Connect to database
-    include __DIR__ . '/../config/db.php';
+    include __DIR__ . '/../../config/db.php';
     mysqli_select_db($conn, 'FAQUiaChatbot');
 
     /**
@@ -140,6 +142,7 @@ private function getKeywordArr($Q)
          *      → synonyms: ["retain", "carry", "book", ...]
          */
         $synonyms = $this->getSynonymsFromDatamuse($word);
+        print_r($synonyms);
 
         // Filter synonyms:
         // - Remove empty strings
@@ -191,11 +194,13 @@ private function getKeywordArr($Q)
 
     // If one or more keywords matched → return them
     if (!empty($keywordArr)) {
+        print_r($keywordArr);
         return $keywordArr;
     }
 
     // No keywords matched any word or synonym
-    echo "there is no key word in the question";
+    $chatbotLog[] = "there is no key word in the question";
+    print_r($keywordArr);
     return [];
 }
 

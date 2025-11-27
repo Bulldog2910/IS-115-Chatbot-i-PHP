@@ -10,40 +10,101 @@ TRUNCATE TABLE questions;
 TRUNCATE TABLE category;
 TRUNCATE TABLE keyWords;
 TRUNCATE TABLE chatUser;
-SET FOREIGN_KEY_CHECKS = 1;
 
 -- 1) chatUser
 INSERT INTO chatUser (firstName, lastName, userpassword, mail, username, role) VALUES
-('Fredrik', 'Husebø',  'Passord123@', 'fredrik@gmail.com', 'Husebrah', 'standard'),
-('Elias',   'Simonsen','Passord123@', 'Elias@gmail.com',   'Gooner',   'standard'),
-('Mathias', 'Jorgensen','Passord123@','Mathias@gmail.com', 'Bulldog',  'standard'),
-('Adam',    'Mihn',    'Passord123@', 'Admin@gmail.com',   'Admin',    'admin');
+('Fredrik', 'Husebø',  'Password123@', '[fredrik@gmail.com](mailto:fredrik@gmail.com)', 'Husebrah', 'standard'),
+('Elias',   'Simonsen','Password123@', '[Elias@gmail.com](mailto:Elias@gmail.com)',   'Gooner',   'standard'),
+('Mathias', 'Jorgensen','Password123@','[Mathias@gmail.com](mailto:Mathias@gmail.com)', 'Bulldog',  'standard'),
+('Adam',    'Mihn',    'Password123@', '[Admin@gmail.com](mailto:Admin@gmail.com)',   'Admin',    'admin');
 
 -- 2) keyWords
 INSERT INTO keyWords (keyword) VALUES
-('how'),
-('book'),
-('meeting'),
-('grading');
+('map'),
+('information'),
+('directions'),
+('campus'),
+('buildings'),
+('rooms'),
+('navigation'),
+('path'),
+('road'),
+('location'),
+('exam'),
+('date'),
+('schedule'),
+('studentweb'),
+('study plan'),
+('test'),
+('submission'),
+('deadlines'),
+('semester'),
+('assessment'),
+('activities'),
+('sports'),
+('culture'),
+('association'),
+('event'),
+('student life'),
+('social'),
+('course'),
+('workshop'),
+('meetings'),
+('address'),
+('location'),
+('Kristiansand'),
+('Grimstad'),
+('university'),
+('uia'),
+('parking'),
+('space'),
+('cars'),
+('student'),
+('staff'),
+('area'),
+('parking garage');
 
 -- 3) categories
 INSERT INTO category (categoryDescription) VALUES
-('Studieadministrasjon'),
-('IT og Teknisk Hjelp'),
-('Eksamen og Vurdering'),
-('Campus og Studentliv'),
-('Internasjonalt og Utveksling'),
-('Helse og Rådgivning');
+('Study Administration'),
+('IT and Technical Support'),
+('Exams and Assessment'),
+('Campus and Student Life'),
+('International and Exchange'),
+('Health and Counseling');
 
--- 4) questions
-INSERT INTO questions (
-    questionDescription, questionAnswer,
-    keyword1, keyword2, keyword3,
-    category
-) VALUES
+-- 4) More questions
+INSERT INTO questions (questionDescription, questionAnswer, keyword1, keyword2, keyword3, keyword4, keyword5, keyword6, keyword7, keyword8, keyword9, keyword10, category)
+VALUES
 (
-    'Hvordan booker jeg tid, til intervju i IS-115?',
-    'Du må booke tid igjennom BookIT',
-    1, 2, 3,
-    2
+'How do I find my way?',
+'You can find your way using the map on UiA’s website or by asking at the information desk.',
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+NULL
+),
+(
+'When are the exams?',
+'You can find the exam dates in the study plan or on Studentweb for your program.',
+11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+NULL
+),
+(
+'What activities are available?',
+'UiA offers many activities, such as sports, cultural events, student associations, and social gatherings.',
+21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+NULL
+),
+(
+'Where is UiA located?',
+'The University of Agder has a main campus in Kristiansand and a campus in Grimstad.',
+31, 32, 33, 34, 35, 4, 1, 36, 37, 38,
+NULL
+),
+(
+'Is there parking available?',
+'There are parking spaces at the campus for both staff and students. See the parking map on UiA’s website.',
+39, 40, 41, 4, 26, 42, 8, 43, 44, 45,
+NULL
 );
+
+SET FOREIGN_KEY_CHECKS = 1;

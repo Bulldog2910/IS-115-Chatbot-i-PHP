@@ -379,3 +379,13 @@ body {
     background: #ffffff;
     background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 1) 100%);
 }
+
+.qa-container .qa-item {
+    padding: 12px;
+}
+
+#chatThinking{
+    opacity: 0;
+    width: 1vw;
+    height: auto;
+}
