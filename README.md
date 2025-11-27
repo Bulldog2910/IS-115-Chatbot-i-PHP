@@ -1,5 +1,5 @@
 # IS-115-Chatbot-i-PHP
-Dette er en oppgave i faget Webprogrammering i php (IS-115). Nettsiden vil være en chatbot som svarer på spørsmål som brukere stiller innenfor et tema.
+Dette er en oppgave for faget Webprogrammering i php (IS-115). Applikasjonen er en Regel-basert chatbot som svarer på UIA relaterte spørsmål ved å analysere tekst og identifisere relevante nøkkel ord og sammaenlingner disse med lagrede spørsmål og svar i databasen.
 
 Steg for å kjøre prosjektet:
 1. Last ned xammp
