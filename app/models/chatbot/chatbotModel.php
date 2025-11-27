@@ -96,7 +96,7 @@ private function getKeywordArr($Q)
 
     // Split input into individual words separated by spaces
     // Example: "how do i book interview" → ["how", "do", "i", "book", "interview"]
-    $inputArr = explode(" ", $lowerCaseInput);
+    $inputArr = preg_split("/[\s\.,!]+/", $lowerCaseInput, -1, PREG_SPLIT_NO_EMPTY);;
 
     // Will hold ALL matched keyword IDs
     $keywordArr = [];
