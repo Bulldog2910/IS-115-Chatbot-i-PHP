@@ -4,11 +4,16 @@
         session_start();
     }
 
+    // Include database connection and controller
+    include __DIR__ . '/../config/db.php';
+    include __DIR__ . '/../controllers/dbController.php';
+    mysqli_close($conn);
+    
     // Do not redirect if already on the login page
     $current = basename($_SERVER['PHP_SELF']);
 
     if (!isset($_SESSION['user_id']) && $current !== 'login.php') {
-        header("Location: ../../public/login.php");
+        header("Location: ../public/login.php");
         exit();
     }
 
@@ -24,10 +29,7 @@
     $output = $_SESSION['output'] ?? '';
     $error = $_SESSION['error'] ?? [];
 
-    // Include database connection and controller
-    include __DIR__ . '/../config/db.php';
-    include __DIR__ . '/../controllers/dbController.php';
-    mysqli_close($conn);
+
 
     // Session timeout (10 minutes)
     $timeout = 6000;
