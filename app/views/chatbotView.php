@@ -25,11 +25,13 @@
             <div id="qa-container" class="qa-container">
                 <?php 
                     if(isset($_SESSION['chatbotLog'])){
-                        foreach($chatbotLog as $QAArr){
-                            echo "<div class='qa-item'>";
-                            echo "<p class='question'>Spørsmål: $QAArr[0]</p>";
-                            echo "<p class='answer'>Svar: $QAArr[1]</p>";
-                            echo "</div>";
+                        foreach($_SESSION['chatbotLog'] as $QAArr){
+                            foreach($QAArr as $innerArr){ // $innerArr is the array with [0] => question, [1] => answer
+                                echo "<div class='qa-item'>";
+                                echo "<p class='question'>Spørsmål: " . htmlspecialchars($innerArr[0]) . "</p>";
+                                echo "<p class='answer'>Svar: " . htmlspecialchars($innerArr[1]) . "</p>";
+                                echo "</div>";
+                            }
                         }
                     } 
                 ?>

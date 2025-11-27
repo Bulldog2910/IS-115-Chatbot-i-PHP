@@ -3,16 +3,18 @@
 class chatbotModel{
     public $keywordArr;   // IDs of matched keywords
     public $QArr;         // Questions matched to these keywords
+    public $chatbotLog;
 
 
     function __construct($Q)
     {
         $this->keywordArr = $this->getKeywordArr($Q);   // extract keyword IDs from input
-        if($this->keywordArr === false){
+        if($this->keywordArr == []){
             $this->QArr = "Found no keywords in the question";
         } else{
                 $this->QArr = $this->getQArr();  // fetch matching questions
         }
+
 
                        
     }
@@ -30,7 +32,7 @@ class chatbotModel{
          *  - Execute the statement repeatedly, once for each keyword.
          */
 
-        include __DIR__ . '/../config/db.php';
+        include __DIR__ . '/../../config/db.php';
         mysqli_select_db($conn, 'FAQUiaChatbot');
 
         // Query questions where any keyword column matches
@@ -100,7 +102,7 @@ private function getKeywordArr($Q)
     $keywordArr = [];
 
     // Connect to database
-    include __DIR__ . '/../config/db.php';
+    include __DIR__ . '/../../config/db.php';
     mysqli_select_db($conn, 'FAQUiaChatbot');
 
     /**
@@ -198,7 +200,7 @@ private function getKeywordArr($Q)
     }
 
     // No keywords matched any word or synonym
-    echo "there is no key word in the question";
+    $chatbotLog[] = "there is no key word in the question";
     return [];
 }
 
