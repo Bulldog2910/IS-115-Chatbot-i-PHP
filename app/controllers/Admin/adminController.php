@@ -4,10 +4,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
     include_once '_header.php';
     // Sjekker at innlogget bruker har admin-rolle, ellers nektes tilgang
-    /* if ($_SESSION['role'] !== 'admin') {
-         header("Location: index.php?feil=Ikke_tilgang.");
+    if ($_SESSION['role'] !== 'admin') {
+         header("Location: ../../public/index.php");
         exit; 
-    } */
+    } 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['identificatorTable'] == 'keyword'){
     if ($_POST['identificator'] == 'keywordUpdate'){
         include __DIR__ . '/editKeywordController.php';
