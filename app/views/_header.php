@@ -58,17 +58,21 @@
 </head>
 <body>
     <nav>
-        <ul>
-            <a href="../app/views/userCreation.php">User creation</a>
-            <a href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
-            <a href="../app/views/admin.php">Admin</a>
-            <div class="user-info">
-            <?php if (isset($_SESSION['username'])): ?>
-                <div class="user-info">
-                    <form method="POST" style="display: inline;">
-                        <input type="submit" name="logout" class="button" value="Logg ut">
-                    </form>
-                </div>
-            <?php endif; ?>
-        </ul>
+        <div class="user-info">
+            <a class="button" href="../app/views/userCreation.php">User creation</a>
+        </div>
+        <div class="user-info">
+            <a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
+        </div>
+        <div class="user-info">
+            <a class="button" href="../app/views/admin.php">Admin</a>
+        </div>
     </nav>
+            <div class="logout">
+            <?php if (isset($_SESSION['username'])): ?>
+                <form method="POST" >
+                    <input type="submit" name="logout" class="button" value="Logg ut">
+                </form>  
+            <?php endif; ?>
+            </div>
+    

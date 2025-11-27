@@ -13,8 +13,7 @@ class chatbotModel{
         } else{
                 $this->QArr = $this->getQArr();  // fetch matching questions
         }
-        print_r($this->keywordArr);
-        print_r($this->QArr);
+
                        
     }
 
