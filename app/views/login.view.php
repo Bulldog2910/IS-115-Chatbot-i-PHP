@@ -1,6 +1,4 @@
 <?php
-// app/views/login.view.php
-// Forventer $errorMsg (array) og $email (string) fra controller
 
 include __DIR__ . '/_header.php';
 ?>
@@ -34,7 +32,7 @@ include __DIR__ . '/_header.php';
         <button type="submit" name="login" class="button">Logg inn</button>
     </form>
 
-    <a href="./userCreation.php">
+    <a href="../app/views/registrerBruker.php">
         <button class="button" type="button">Registrér</button>
     </a>
 </div>

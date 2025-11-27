@@ -8,7 +8,7 @@
     $current = basename($_SERVER['PHP_SELF']);
 
     if (!isset($_SESSION['user_id']) && $current !== 'login.php') {
-        header("Location: ../public/login.php");
+        header("Location: ../../public/login.php");
         exit();
     }
 
