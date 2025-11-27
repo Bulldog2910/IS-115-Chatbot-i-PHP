@@ -145,6 +145,7 @@ private function getKeywordArr($Q)
          *      → synonyms: ["retain", "carry", "book", ...]
          */
         $synonyms = $this->getSynonymsFromDatamuse($word);
+        print_r($synonyms);
 
         // Filter synonyms:
         // - Remove empty strings
@@ -196,11 +197,13 @@ private function getKeywordArr($Q)
 
     // If one or more keywords matched → return them
     if (!empty($keywordArr)) {
+        print_r($keywordArr);
         return $keywordArr;
     }
 
     // No keywords matched any word or synonym
     $chatbotLog[] = "there is no key word in the question";
+    print_r($keywordArr);
     return [];
 }
 
