@@ -85,9 +85,6 @@ private function getKeywordArr($Q)
      *      - Compare it with the keyWords table in MySQL
      *      - If it matches, store the keywordId
      *
-     * Returns:
-     *  - Array of matched keyword IDs (e.g. [2 => 2, 5 => 5])
-     *  - Empty array + message if no keywords match
      */
 
     // Convert the entire user question to lowercase
@@ -110,7 +107,7 @@ private function getKeywordArr($Q)
      *
      * LOWER(keyword) = ?  makes the comparison case-insensitive.
      * Example:
-     *   DB value: "Book"
+     *   DB value: "book"
      *   Candidate: "book"
      *   → Match
      */

@@ -4,6 +4,11 @@
         session_start();
     }
 
+    // Include database connection and controller
+    include __DIR__ . '/../config/db.php';
+    include __DIR__ . '/../controllers/dbController.php';
+    mysqli_close($conn);
+    
     // Do not redirect if already on the login page
     $current = basename($_SERVER['PHP_SELF']);
 
@@ -24,10 +29,7 @@
     $output = $_SESSION['output'] ?? '';
     $error = $_SESSION['error'] ?? [];
 
-    // Include database connection and controller
-    include __DIR__ . '/../config/db.php';
-    include __DIR__ . '/../controllers/dbController.php';
-    mysqli_close($conn);
+
 
     // Session timeout (10 minutes)
     $timeout = 6000;
@@ -65,7 +67,7 @@
             <a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
         </div>
         <div class="user-info">
-            <a class="button" href="../app/views/admin.php">Admin</a>
+            <a class="button" href="../app/views/admin/admin.php">Admin</a>
         </div>
     </nav>
             <div class="logout">
