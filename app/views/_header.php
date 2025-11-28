@@ -67,7 +67,7 @@
             <a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
         </div>
         <div class="user-info">
-            <a class="button" href="../app/views/admin.php">Admin</a>
+            <a class="button" href="../app/views/admin/admin.php">Admin</a>
         </div>
     </nav>
             <div class="logout">

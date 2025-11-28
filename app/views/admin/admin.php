@@ -1,12 +1,9 @@
 
-<style>
-    th, td, tr, table {
-        border: black solid 2px;
-    }
-</style>
-<a href="../../public/Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
+<link rel="stylesheet" href="../../../public/CSS/admin.css">
+
+<a href="../../../public/Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
 <?php
-require __DIR__ . '/../controllers/Admin/adminController.php';
+require __DIR__ . '/../../controllers/Admin/adminController.php';
 $_SESSION['chatbotLog'] = [];
 ?>
 <h1>Questions</h1>

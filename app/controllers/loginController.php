@@ -83,6 +83,7 @@ class LoginController
         // Store user data in session (used to confirm logged-in state)
         $_SESSION['user_id']  = $user['id'] ?? 1; // Fallback because column name may differ
         $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'];
 
         // Redirect user to the application after successful login
         // (Relative path is used to avoid redirecting to server root)
