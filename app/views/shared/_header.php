@@ -5,8 +5,8 @@
     }
 
     // Include database connection and controller
-    include __DIR__ . '/../config/db.php';
-    include __DIR__ . '/../controllers/dbController.php';
+    include __DIR__ . '/../../config/db.php';
+    include __DIR__ . '/../../controllers/dbController.php';
     mysqli_close($conn);
     
     // Do not redirect if already on the login page
@@ -61,11 +61,9 @@
 <body>
     <nav>
         <div class="user-info">
-            <a class="button" href="../app/views/userCreation.php">User creation</a>
+            <a class="button" href="../app/views/registrerBruker.php">User creation</a>
         </div>
-        <div class="user-info">
-            <a class="button" href="../app/controllers/chatbotControllerTest.php">chatbotTest</a>
-        </div>
+        
         <div class="user-info">
             <a class="button" href="../app/views/admin/admin.php">Admin</a>
         </div>
