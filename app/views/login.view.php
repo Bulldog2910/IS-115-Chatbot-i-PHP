@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/_header.php';
+include __DIR__ . '/shared/_header.php';
 ?>
 
 <link rel="stylesheet" href="../public/css/login.css">
@@ -37,4 +37,4 @@ include __DIR__ . '/_header.php';
     </a>
 </div>
 
-<?php include __DIR__ . '/_footer.php'; ?>
+<?php include __DIR__ . '/shared/_footer.php'; ?>

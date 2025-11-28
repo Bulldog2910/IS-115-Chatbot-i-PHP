@@ -1,3 +1,3 @@
 <?php
-include __DIR__ . '/_header.php';
+include __DIR__ . '/shared/_header.php';
 ?>

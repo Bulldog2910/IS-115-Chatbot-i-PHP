@@ -80,4 +80,32 @@ class addQModel {
 
         return $row['keywordId'];
     }
+
+    public function addQuestion(){
+        require __DIR__ . '/../../config/dbOOP.php';
+        $conn->select_db('FAQUiaChatbot');
+        $stmt = $conn->prepare("INSERT INTO questions 
+            (questionDescription, questionAnswer, keyword1, keyword2, keyword3, keyword4, keyword5, keyword6, keyword7, keyword8, keyword9, keyword10)
+            VALUES 
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param(
+            'ssiiiiiiiiii', 
+            $this->questionDescription, 
+            $this->questionAnswer, 
+            $this->keywordIds[0], 
+            $this->keywordIds[1], 
+            $this->keywordIds[2], 
+            $this->keywordIds[3], 
+            $this->keywordIds[4], 
+            $this->keywordIds[5], 
+            $this->keywordIds[6], 
+            $this->keywordIds[7], 
+            $this->keywordIds[8], 
+            $this->keywordIds[9], 
+        );if($stmt->execute()){
+            $this->addQLog[] = 'Inserted correctly';
+        }else{
+            $this->addQLog['DB-03'] = 'Error inserting Question: ' . $stmt->error;
+        }
+    }
 }
