@@ -68,8 +68,8 @@ class LoginController
             return;
         }
 
-        // Compare the stored password with the submitted one
-        // NOTE: This checks raw text because the original logic uses plaintext
+        // Verify that the raw password typed by the user matches the stored hash.
+        // password_verify() safely compares the input to the hash.
         if (!password_verify($password, $user['userpassword'])) {
             $this->errorMsg['Wrong password'] = "Feil passord";
             return;
