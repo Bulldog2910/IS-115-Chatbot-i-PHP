@@ -2,16 +2,14 @@
 $errors = []; // collect errors
 
 $serverName = "localhost";
-$username = "root";
-$password = "";
+$username   = "root";
+$password   = "";
+$dbName     = "FAQUiaChatbot";
 
-// Create connection
-$conn = mysqli_connect($serverName, $username, $password);
+$conn = new mysqli($serverName, $username, $password, $dbName);
 
-// Check connection
-if (!$conn) {
-    $errors[] = "Connection failed: " . mysqli_connect_error();
-    die(); // stop script but do not echo
+if ($conn->connect_error) {
+    die('Connection failed: ' . $conn->connect_error);
 }
 
 // Connection success is ignored (no echo)
