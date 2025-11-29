@@ -28,7 +28,7 @@ INSERT INTO keyWords (keyword) VALUES
 ('date'),
 ('schedule'),
 ('studentweb'),
-('study plan'),
+('study'),
 ('test'),
 ('submission'),
 ('deadlines'),
@@ -39,7 +39,7 @@ INSERT INTO keyWords (keyword) VALUES
 ('culture'),
 ('association'),
 ('event'),
-('student life'),
+('student'),
 ('social'),
 ('course'),
 ('workshop'),
@@ -56,7 +56,7 @@ INSERT INTO keyWords (keyword) VALUES
 ('student'),
 ('staff'),
 ('area'),
-('parking garage');
+('parking');
 
 -- 3) categories
 INSERT INTO category (categoryDescription) VALUES
