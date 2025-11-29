@@ -1,6 +1,5 @@
 <?php 
-     // Set session cookie parameters
-    
+    // Set session cookie parameters
     // Start session if none exists
     if (session_status() === PHP_SESSION_NONE) {
         session_set_cookie_params([
@@ -15,7 +14,7 @@
     $_SESSION['role'] = $_SESSION['role'] ?? '';
 
     // Include database connection and controller
-    include __DIR__ . '/../../config/db.php';
+    include __DIR__ . '/../../config/dbOOP.php';
     include __DIR__ . '/../../controllers/dbController.php';
     
     // Do not redirect if already on the login page

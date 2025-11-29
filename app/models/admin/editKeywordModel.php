@@ -25,7 +25,7 @@ class editkeyword{
         $row = $result->fetch_assoc();
 
         if($result->num_rows !== 0 ){
-            $err['DB-01'] = 'Keyword allready exist with Keyid: ' . $row['keywordId'] ;
+            $this->err['DB-01'] = 'Keyword allready exist with Keyid: ' . $row['keywordId'];
         }else{
             $stmt = $conn->prepare('UPDATE keyWords SET keyword = ? WHERE keywordId = ?');
             $stmt->bind_param('si', $keyword, $id);
