@@ -14,5 +14,10 @@ if ($conn->connect_error) {
     die();
 }
 
-$conn->select_db('FAQUiaChatbot');
+$result = mysqli_query($conn, "SHOW DATABASES LIKE 'FAQUiaChatbot'");
+if (mysqli_num_rows($result) == 0) { 
+    
+} else {
+    $conn->select_db('faquiachatbot');
+}
 ?>

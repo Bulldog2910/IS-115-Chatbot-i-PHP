@@ -14,7 +14,7 @@
     $_SESSION['role'] = $_SESSION['role'] ?? '';
 
     // Include database connection and controller
-    include __DIR__ . '/../../config/db.php';
+    include __DIR__ . '/../../config/dbOOP.php';
     include __DIR__ . '/../../controllers/dbController.php';
     
     // Do not redirect if already on the login page
