@@ -79,21 +79,20 @@
         </form>
         </div>
     </div>
-    <script>
-        const container = document.getElementById('qa-container');
-        container.scrollTop = container.scrollHeight;
+<script>
+    const container = document.getElementById('qa-container');
+    container.scrollTop = container.scrollHeight;
 
-        function showThinking() {
-            input = document.getElementById('message-input');
-            if(input.value.trim() === ""){
-                return; // do nothing if empty
-            } else{
-                /* Access image by id and change 
-                the display property to block*/
-                document.getElementById('chatThinking')
-                .style.opacity = "1";
-            }
-            
-        }
-    </script>
+    function showThinking() {
+        input = document.getElementById('message-input');
+        if(input.value.trim() === ""){
+            return; // do nothing if empty
+        } else{
+            /* Access image by id and change 
+            the display property to block*/
+            document.getElementById('chatThinking')
+            .style.opacity = "1";
+        }   
+    }
+</script>
 

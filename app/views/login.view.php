@@ -1,8 +1,6 @@
 <?php
-
-include __DIR__ . '/shared/_header.php';
+    include __DIR__ . '/shared/_header.php';
 ?>
-
 <link rel="stylesheet" href="../public/css/login.css">
 
 <div class="login-container">
