@@ -5,11 +5,20 @@ require_once __DIR__ . '/../models/User/registerModel.php';
 
 class RegisterController
 {
+    // Shared mysqli connection for this request
     private mysqli $conn;
+
+    // Model responsible for persisting new users
     private NewUser $userModel;
 
     /**
-     * Controller receives the DB connection and constructs the model.
+     * __construct()
+     * --------------
+     * The controller receives a ready-to-use mysqli connection
+     * (usually created in config/db.php).
+     *
+     * It also instantiates the NewUser model, which encapsulates
+     * all database logic related to creating users.
      */
     public function __construct(mysqli $conn)
     {
@@ -18,14 +27,36 @@ class RegisterController
     }
 
     /**
+     * register()
+     * ----------
      * Handles both GET and POST for the registration page.
+     *
+     * Flow:
+     *  - On GET:
+     *      * Show empty form (or previously submitted data if needed)
+     *  - On POST:
+     *      * Validate user input using RegisterValidator
+     *      * If validation passes → hash password and create user through model
+     *      * If validation fails → pass errors and form values to the view
+     *
+     * The method always ends by loading the view
+     * `../views/registerUser.view.php`, which uses:
+     *  - $error      : array of error messages
+     *  - $successMsg : success message string
+     *  - $data       : array of form values to refill the form
      */
     public function register(): void
     {
+        // Default state: no errors and no success message
         $errors  = [];
         $success = '';
 
-        // Keep form values so user doesn’t lose input on validation errors
+        /**
+         * Pre-populate form data:
+         * This ensures that if validation fails, the user does not lose
+         * everything they typed. We reuse this array later in both
+         * the error and success cases.
+         */
         $formData = [
             'firstName'      => $_POST['firstName']      ?? '',
             'lastName'       => $_POST['lastName']       ?? '',
@@ -35,16 +66,18 @@ class RegisterController
             'repeatpassword' => $_POST['repeatpassword'] ?? '',
         ];
 
+        // Only run validation and insert logic on HTTP POST (form submission)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // 1) Run validation on POST data
+            // 1) Validate raw POST data using a dedicated validator service
             $validator = new RegisterValidator($_POST);
             $errors    = $validator->validate();
 
-            // 2) If no errors, create user via the model
+            // 2) If no validation errors, proceed with user creation
             if (empty($errors)) {
-                // Hash password before saving
+                // Securely hash the password before persisting it
                 $hashedPassword = password_hash($formData['userpassword'], PASSWORD_DEFAULT);
 
+                // Delegate database insert to the model
                 $this->userModel->createUser([
                     'firstName' => $formData['firstName'],
                     'lastName'  => $formData['lastName'],
@@ -53,20 +86,26 @@ class RegisterController
                     'password'  => $hashedPassword,
                 ]);
 
+                // Inform the view that registration succeeded
                 $success = "Bruker registrert!";
 
-                // Optionally clear password fields after success
+                // Clear password fields so they are not shown back to the user
                 $formData['userpassword']   = '';
                 $formData['repeatpassword'] = '';
             }
         }
 
-        // Make variables available to view
+        /**
+         * Expose data to the view:
+         * The included view file `registerUser.view.php` expects
+         * these variable names in the local scope.
+         */
         $error      = $errors;
         $successMsg = $success;
         $data       = $formData;
 
-        // Load the view
+        // Render the registration form (with errors/success/data if applicable)
         require __DIR__ . '/../views/registerUser.view.php';
     }
 }
+?>
