@@ -7,12 +7,27 @@ $identificator = $_POST['identificatorTable'] ?? 'wrong';
 
     // Sjekker at innlogget bruker har admin-rolle, ellers nektes tilgang
     if ($_SESSION['role'] !== 'admin') {
-         header("Location: ../../../public/index.php");
+         header("Location: ../public/index.php");
         exit; 
     } 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $identificator == 'keyword'){
     include __DIR__ . '/editKeywordController.php';
     include __DIR__ . '/../../views/admin/keywordForm.php'; 
+    $error = $editKeywordModel->error() ?? NULL;
+    if(isset($error)){
+        if(is_array($error)){
+            foreach($error as $errorId => $errorMessage){
+                echo "<p style='color: red;'>Error id: $errorId ($errorMessage)</p>";
+            }
+        }
+    }
+    
+
+}
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $identificator == 'Reset Database'){
+   include __DIR__ . '/../../config/dbOOP.php';
+   $conn->query("DROP DATABASE IF EXISTS `faquiachatbot`");
+   header("Location: ../public/index.php");
 
 }
 
