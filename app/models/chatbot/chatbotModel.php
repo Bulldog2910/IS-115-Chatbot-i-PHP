@@ -67,10 +67,12 @@ class chatbotModel{
          * Debug helper: prints all matched question IDs and their text.
          * Used only for troubleshooting.
          */
+        $arr = [];
         foreach($this->QArr as $id => $q)
         {
-            echo $id . ": " . $q;
+            $arr[] = $id . ": " . $q;
         }
+        return $arr;
     }
 
 private function getKeywordArr($Q)
@@ -146,7 +148,7 @@ private function getKeywordArr($Q)
          *      → synonyms: ["retain", "carry", "book", ...]
          */
         $synonyms = $this->synonymModel->getSynonymsFromDatamuse($word);
-        print_r($synonyms);
+        $this->chatbotLog[] = print_r($synonyms);
 
         // Filter synonyms:
         // - Remove empty strings
@@ -184,7 +186,7 @@ private function getKeywordArr($Q)
             while ($stmt->fetch()) {
 
                 // DEBUG: Show which candidate matched which keywordId
-                echo "MATCH: '{$possibleKey}' => keywordId {$keywordId}<br>";
+                $this->chatbotLog[] = "MATCH: '{$possibleKey}' => keywordId {$keywordId}<br>";
 
                 // Store keywordId twice (key and value) to avoid duplicates
                 $keywordArr[$keywordId] = $keywordId;
@@ -198,13 +200,12 @@ private function getKeywordArr($Q)
 
     // If one or more keywords matched → return them
     if (!empty($keywordArr)) {
-        print_r($keywordArr);
+        $this->chatbotLog[] = print_r($keywordArr);
         return $keywordArr;
     }
 
     // No keywords matched any word or synonym
     $chatbotLog[] = "there is no key word in the question";
-    print_r($keywordArr);
     return [];
 }
 

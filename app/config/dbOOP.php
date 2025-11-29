@@ -13,4 +13,6 @@ if ($conn->connect_error) {
     $errors[] = "Connection failed: " . $conn->connect_error;
     die();
 }
+
+$conn->select_db('FAQUiaChatbot');
 ?>

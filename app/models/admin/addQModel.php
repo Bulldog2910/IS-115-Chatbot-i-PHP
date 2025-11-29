@@ -33,7 +33,6 @@ class addQModel {
 
     public function checkKeywordExist(){
         require __DIR__ . '/../../config/dbOOP.php';
-        $conn->select_db('FAQUiaChatbot');
 
         $stmt = $conn->prepare('SELECT * FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
@@ -71,7 +70,6 @@ class addQModel {
 
     private function getkeywordId($bind){
         require __DIR__ . '/../../config/dbOOP.php';
-        $conn->select_db('FAQUiaChatbot');
         $stmt = $conn->prepare('SELECT keywordId FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
         $stmt->execute();
@@ -83,7 +81,6 @@ class addQModel {
 
     public function addQuestion(){
         require __DIR__ . '/../../config/dbOOP.php';
-        $conn->select_db('FAQUiaChatbot');
         $stmt = $conn->prepare("INSERT INTO questions 
             (questionDescription, questionAnswer, keyword1, keyword2, keyword3, keyword4, keyword5, keyword6, keyword7, keyword8, keyword9, keyword10)
             VALUES 

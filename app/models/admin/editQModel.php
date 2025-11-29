@@ -48,8 +48,6 @@ class editQModel {
 
     public function checkKeywordExist(){
         require __DIR__ . '/../../config/dbOOP.php';
-        $conn->select_db('FAQUiaChatbot');
-
         $bind = null;
         $stmt = $conn->prepare('SELECT * FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
@@ -87,7 +85,6 @@ class editQModel {
 
     private function getkeywordId($bind){
         require __DIR__ . '/../../config/dbOOP.php';
-        $conn->select_db('FAQUiaChatbot');
         $stmt = $conn->prepare('SELECT keywordId FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
         $stmt->execute();
@@ -95,5 +92,50 @@ class editQModel {
         $row = $result->fetch_assoc();
 
         return $row['keywordId'];
+    }
+
+    public function updateQ(){
+        require __DIR__ . '/../../config/dbOOP.php';
+
+        $stmt = $conn->prepare(
+            "UPDATE questions SET
+                questionDescription = ?,
+                questionAnswer = ?,
+                keyword1 = ?,
+                keyword2 = ?,
+                keyword3 = ?,
+                keyword4 = ?,
+                keyword5 = ?,
+                keyword6 = ?,
+                keyword7 = ?,
+                keyword8 = ?,
+                keyword9 = ?,
+                keyword10 = ?
+            WHERE questionId = ?
+        ");
+
+        $stmt->bind_param(
+            'ssiiiiiiiiiii', 
+            $this->questionDescription, 
+            $this->questionAnswer, 
+            $this->keywordIds[0], 
+            $this->keywordIds[1], 
+            $this->keywordIds[2], 
+            $this->keywordIds[3], 
+            $this->keywordIds[4], 
+            $this->keywordIds[5], 
+            $this->keywordIds[6], 
+            $this->keywordIds[7], 
+            $this->keywordIds[8], 
+            $this->keywordIds[9],
+            $this->Qid
+        );
+
+
+        if($stmt->execute()){
+            $this->addQLog[] = 'Updated correctly';
+        }else{
+            $this->addQLog[] =['DB-03' => 'Error updateting Question: ' . $stmt->error];
+        }
     }
 }
