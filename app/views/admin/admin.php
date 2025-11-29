@@ -3,8 +3,8 @@
 
 <a href="../../../public/Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
 <?php
-require __DIR__ . '/../../controllers/Admin/adminController.php';
-$_SESSION['chatbotLog'] = [];
+    require __DIR__ . '/../../controllers/Admin/adminController.php';
+    $_SESSION['chatbotLog'] = [];
 ?>
 <h1>Questions</h1>
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
@@ -29,7 +29,7 @@ $_SESSION['chatbotLog'] = [];
         <th>Keyword10:</th>
 
     </tr>
-<?php while ($row = $resultQ->fetch_assoc()): ?>
+<?php while ($row = $selectViews->resultQ->fetch_assoc()): ?>
     <tr>
         <td><?= $row['questionDescription'] ?></td>
         <td><?= $row['questionAnswer'] ?></td>
@@ -74,7 +74,7 @@ $_SESSION['chatbotLog'] = [];
         <th>Userpassword:</th>
         <th>Mail:</th>
     </tr>
-<?php while ($row = $resultChat->fetch_assoc()): ?>
+<?php while ($row = $selectViews->resultChat->fetch_assoc()): ?>
     <tr>
         <td><?= $row['username'] ?></td>
         <td><?= $row['firstName'] ?></td>
@@ -91,7 +91,7 @@ $_SESSION['chatbotLog'] = [];
         <th>KeywordId:</th>
         <th>Keyword:</th>
     </tr>
-<?php while ($row = $resultKey->fetch_assoc()): ?>
+<?php while ($row = $selectViews->resultKey->fetch_assoc()): ?>
     <tr>
         <td><?= $row['keywordId'] ?></td>
         <td><?= $row['keyword'] ?></td>

@@ -1,8 +1,6 @@
 <?php
-
-// Include the registration controller which handles form submission and validation
-include __DIR__ . '/../controllers/registrerBrukerController.php';
-
+    // Include the registration controller which handles form submission and validation
+    include __DIR__ . '/../controllers/registrerBrukerController.php';
 ?>
 <!DOCTYPE html>
 <html lang="no">
