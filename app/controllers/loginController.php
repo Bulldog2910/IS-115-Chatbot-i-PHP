@@ -84,6 +84,7 @@ class LoginController
         $_SESSION['user_id']  = $user['id'] ?? 1; // Fallback because column name may differ
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
+        session_regenerate_id(true);
 
         // Redirect user to the application after successful login
         // (Relative path is used to avoid redirecting to server root)

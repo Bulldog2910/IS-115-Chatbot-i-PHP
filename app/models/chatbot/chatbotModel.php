@@ -1,18 +1,15 @@
 <?php 
 
-require_once __DIR__ . '/SynonymModel.php'; // juster sti ved behov
-
 class chatbotModel{
     public $keywordArr;   // IDs of matched keywords
     public $QArr;         // Questions matched to these keywords
     public $chatbotLog;
-    private $synonymModel;
+    public $wordArr;
 
 
-    function __construct($Q)
+    function __construct($lemmaArr)
     {
-        $this->synonymModel = new SynonymModel();
-        $this->keywordArr = $this->getKeywordArr($Q);   // extract keyword IDs from input
+        $this->keywordArr = $this->getKeywordArr($lemmaArr);   // extract keyword IDs from input
         if($this->keywordArr == []){
             $this->QArr = "Found no keywords in the question";
         } else{
@@ -67,15 +64,13 @@ class chatbotModel{
          * Debug helper: prints all matched question IDs and their text.
          * Used only for troubleshooting.
          */
-        $arr = [];
         foreach($this->QArr as $id => $q)
         {
-            $arr[] = $id . ": " . $q;
+            echo $id . ": " . $q;
         }
-        return $arr;
     }
 
-private function getKeywordArr($Q)
+private function getKeywordArr($lemmaArr)
 {
     /**
      * Extract all matching keyword IDs by analyzing the user's input text.
@@ -93,20 +88,11 @@ private function getKeywordArr($Q)
      *
      */
 
-    // Convert the entire user question to lowercase
-    // This ensures consistent matching regardless of casing
-    $lowerCaseInput = strtolower($Q['question']);
-
-    // Split input into individual words separated by spaces
-    // Example: "how do i book interview" → ["how", "do", "i", "book", "interview"]
-    $inputArr = preg_split("/[\s\.,!]+/", $lowerCaseInput, -1, PREG_SPLIT_NO_EMPTY);;
-
     // Will hold ALL matched keyword IDs
     $keywordArr = [];
 
     // Connect to database
-    include __DIR__ . '/../../config/db.php';
-    mysqli_select_db($conn, 'FAQUiaChatbot');
+    include __DIR__ . '/../../config/dbOOP.php';
 
     /**
      * Prepared statement for matching candidate words against the database.
@@ -124,7 +110,7 @@ private function getKeywordArr($Q)
     }
 
     // Loop through every word extracted from the user input
-    foreach ($inputArr as $word) {
+    foreach ($lemmaArr as $word) {
 
         // Clean whitespace (safety measure)
         $word = trim($word);
@@ -147,8 +133,7 @@ private function getKeywordArr($Q)
          *      Input: "hold"
          *      → synonyms: ["retain", "carry", "book", ...]
          */
-        $synonyms = $this->synonymModel->getSynonymsFromDatamuse($word);
-        $this->chatbotLog[] = print_r($synonyms);
+        $synonyms = $this->getSynonymsFromDatamuse($word);
 
         // Filter synonyms:
         // - Remove empty strings
@@ -186,7 +171,7 @@ private function getKeywordArr($Q)
             while ($stmt->fetch()) {
 
                 // DEBUG: Show which candidate matched which keywordId
-                $this->chatbotLog[] = "MATCH: '{$possibleKey}' => keywordId {$keywordId}<br>";
+                $this->chatbotLog[] = "MATCH: '{$possibleKey}' => keywordId {$keywordId}<br>"; 
 
                 // Store keywordId twice (key and value) to avoid duplicates
                 $keywordArr[$keywordId] = $keywordId;
@@ -200,7 +185,6 @@ private function getKeywordArr($Q)
 
     // If one or more keywords matched → return them
     if (!empty($keywordArr)) {
-        $this->chatbotLog[] = print_r($keywordArr);
         return $keywordArr;
     }
 
@@ -209,6 +193,52 @@ private function getKeywordArr($Q)
     return [];
 }
 
+
+    public function getSynonymsFromDatamuse(string $word): array
+    {
+        /**
+         * Fetch synonyms using the external Datamuse API.
+         * 
+         * Example request:
+         *      https://api.datamuse.com/words?rel_syn=fast
+         * 
+         * Returns:
+         *      An array of synonym strings.
+         * 
+         * Error handling:
+         *      - If API is unreachable → return empty array
+         *      - If JSON is malformed → return empty array
+         */
+
+        $url = 'https://api.datamuse.com/words?rel_syn=' . urlencode($word);
+
+        // Safely try to fetch the data (suppress warnings)
+        $json = @file_get_contents($url);
+
+        if ($json === false) {
+            // API unreachable, timeout, or offline
+            return [];
+        }
+
+        // Convert JSON string into PHP associative array
+        $data = json_decode($json, true);
+
+        if (!is_array($data)) {
+            // If the API responded with non-JSON content
+            return [];
+        }
+
+        $result = [];
+
+        // Extract the "word" field from each returned object
+        foreach ($data as $item) {
+            if (isset($item['word'])) {
+                $result[] = $item['word'];
+            }
+        }
+
+        return $result;
+    }
     
 }
 

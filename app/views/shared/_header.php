@@ -1,6 +1,5 @@
 <?php 
-     // Set session cookie parameters
-    
+    // Set session cookie parameters
     // Start session if none exists
     if (session_status() === PHP_SESSION_NONE) {
         session_set_cookie_params([
