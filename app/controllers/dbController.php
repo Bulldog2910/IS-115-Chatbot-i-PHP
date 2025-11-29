@@ -80,15 +80,36 @@ if ($dataRow['rowCount'] == 0) {
 
     if (mysqli_multi_query($conn, $seedSql)) {
         // echo "Seeding completed.<br>";
-
         while (mysqli_next_result($conn)) {;} // flush buffer
-    } else {
-        $errors[] = "Error running seeder: " . mysqli_error($conn);
-        die();
-    }
 
-} else {
-    // echo "Data already exists — skipping seed.<br>";
+        $hashedpassword = password_hash('Password123@', PASSWORD_DEFAULT);
+
+        $stmt = $conn->prepare("
+            INSERT INTO chatUser (firstName, lastName, userpassword, mail, username, role)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ");
+
+        $stmt->bind_param(
+            "ssssss",
+            $firstName,
+            $lastName,
+            $hashedpassword,
+            $email,
+            $username,
+            $role
+        );
+
+        $firstName = "Admin";
+        $lastName = "Admin";
+        $email = "admin@gmail.com";
+        $username = "admin";
+        $role = "admin";
+
+        $stmt->execute();
+
+    } else {
+        // echo "Data already exists — skipping seed.<br>";
+    }
 }
 
 // echo "Setup complete!<br>";

@@ -70,7 +70,7 @@ class LoginController
 
         // Compare the stored password with the submitted one
         // NOTE: This checks raw text because the original logic uses plaintext
-        if ($user['userpassword'] !== $password) {
+        if (!password_verify($password, $user['userpassword'])) {
             $this->errorMsg['Wrong password'] = "Feil passord";
             return;
         }
