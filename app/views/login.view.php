@@ -30,7 +30,7 @@
         <button type="submit" name="login" class="button">Logg inn</button>
     </form>
 
-    <a href="../app/views/registrerBruker.php">
+    <a href="registerUser.php">
         <button class="button" type="button">Registrér</button>
     </a>
 </div>

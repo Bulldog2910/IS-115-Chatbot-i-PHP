@@ -12,7 +12,7 @@
     // Do not redirect if already on the login page
     $current = basename($_SERVER['PHP_SELF']);
 
-    if (!isset($_SESSION['user_id']) && $current !== 'login.php') {
+    if (!isset($_SESSION['user_id']) && $current !== 'login.php' && $current !== 'registerUser.php') {
         header("Location: ../public/login.php");
         exit();
     }
