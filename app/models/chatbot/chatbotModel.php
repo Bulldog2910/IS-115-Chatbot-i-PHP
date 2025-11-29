@@ -1,13 +1,17 @@
 <?php 
 
+require_once __DIR__ . '/SynonymModel.php'; // juster sti ved behov
+
 class chatbotModel{
     public $keywordArr;   // IDs of matched keywords
     public $QArr;         // Questions matched to these keywords
     public $chatbotLog;
+    private $synonymModel;
 
 
     function __construct($Q)
     {
+        $this->synonymModel = new SynonymModel();
         $this->keywordArr = $this->getKeywordArr($Q);   // extract keyword IDs from input
         if($this->keywordArr == []){
             $this->QArr = "Found no keywords in the question";
@@ -143,7 +147,7 @@ private function getKeywordArr($Q)
          *      Input: "hold"
          *      → synonyms: ["retain", "carry", "book", ...]
          */
-        $synonyms = $this->getSynonymsFromDatamuse($word);
+        $synonyms = $this->synonymModel->getSynonymsFromDatamuse($word);
         $this->chatbotLog[] = print_r($synonyms);
 
         // Filter synonyms:
@@ -205,52 +209,6 @@ private function getKeywordArr($Q)
     return [];
 }
 
-
-    public function getSynonymsFromDatamuse(string $word): array
-    {
-        /**
-         * Fetch synonyms using the external Datamuse API.
-         * 
-         * Example request:
-         *      https://api.datamuse.com/words?rel_syn=fast
-         * 
-         * Returns:
-         *      An array of synonym strings.
-         * 
-         * Error handling:
-         *      - If API is unreachable → return empty array
-         *      - If JSON is malformed → return empty array
-         */
-
-        $url = 'https://api.datamuse.com/words?rel_syn=' . urlencode($word);
-
-        // Safely try to fetch the data (suppress warnings)
-        $json = @file_get_contents($url);
-
-        if ($json === false) {
-            // API unreachable, timeout, or offline
-            return [];
-        }
-
-        // Convert JSON string into PHP associative array
-        $data = json_decode($json, true);
-
-        if (!is_array($data)) {
-            // If the API responded with non-JSON content
-            return [];
-        }
-
-        $result = [];
-
-        // Extract the "word" field from each returned object
-        foreach ($data as $item) {
-            if (isset($item['word'])) {
-                $result[] = $item['word'];
-            }
-        }
-
-        return $result;
-    }
     
 }
 
