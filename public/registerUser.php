@@ -8,8 +8,9 @@
 
     require_once __DIR__ . '/../app/controllers/registerController.php';
 
+    $controller = new RegisterController($conn);
+    $controller->register();
+
     include '../app/views/shared/_footer.php';
 
-    $controller = new RegisterController();
-    $controller->register();
 ?>

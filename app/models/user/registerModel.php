@@ -11,7 +11,6 @@ class NewUser
     public function __construct(mysqli $conn)
     {
         $this->conn = $conn;
-        $this->conn->select_db('FAQUiaChatbot');
     }
 
     /**

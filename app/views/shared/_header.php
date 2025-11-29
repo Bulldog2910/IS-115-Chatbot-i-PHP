@@ -17,7 +17,6 @@
     // Include database connection and controller
     include __DIR__ . '/../../config/db.php';
     include __DIR__ . '/../../controllers/dbController.php';
-    mysqli_close($conn);
     
     // Do not redirect if already on the login page
     $current = basename($_SERVER['PHP_SELF']);
@@ -74,11 +73,11 @@
         <div class="user-info">
             <a class="button" href="../app/views/registrerBruker.php">User creation</a>
         </div>
-<?php if($_SESSION['role'] === 'admin'):?>
-        <div class="user-info">
-            <a class="button" href="./admin.php">Admin</a>
-        </div>
-<?php endif;?>
+        <?php if($_SESSION['role'] === 'admin'):?>
+                <div class="user-info">
+                    <a class="button" href="./admin.php">Admin</a>
+                </div>
+        <?php endif;?>
     </nav>
             <div class="logout">
             <?php if (isset($_SESSION['username'])): ?>
