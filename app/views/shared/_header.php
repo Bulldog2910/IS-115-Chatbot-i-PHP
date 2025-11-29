@@ -70,7 +70,7 @@
 <body>
     <nav>
         <div class="user-info">
-            <a class="button" href="../app/views/registrerBruker.php">User creation</a>
+            <a class="button" href="../public/registerUser.php">User creation</a>
         </div>
         <?php if($_SESSION['role'] === 'admin'):?>
                 <div class="user-info">
