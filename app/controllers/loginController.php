@@ -2,7 +2,7 @@
 // app/controllers/LoginController.php
 
 require_once __DIR__ . '/../config/db.php';        // Loads the database connection ($conn)
-require_once __DIR__ . '/../models/userModel.php'; // Loads the User model class
+require_once __DIR__ . '/../models/user/userModel.php'; // Loads the User model class
 
 class LoginController
 {
