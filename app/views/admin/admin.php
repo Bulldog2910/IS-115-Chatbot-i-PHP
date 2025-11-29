@@ -1,7 +1,7 @@
 
-<link rel="stylesheet" href="../../../public/CSS/admin.css">
+<link rel="stylesheet" href="./CSS/admin.css">
 
-<a href="../../../public/Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
+<a href="./Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
 <?php
     require __DIR__ . '/../../controllers/Admin/adminController.php';
     $_SESSION['chatbotLog'] = [];
@@ -14,7 +14,7 @@
 </form>
     
 <table>
-    <tr>
+    <tr class="tableHead">
         <th>Question:</th>
         <th>Answer:</th>
         <th>Keyword1:</th>
@@ -27,10 +27,11 @@
         <th>Keyword8:</th>
         <th>Keyword9:</th>
         <th>Keyword10:</th>
+        <th></th>
 
     </tr>
 <?php while ($row = $selectViews->resultQ->fetch_assoc()): ?>
-    <tr>
+    <tr >
         <td><?= $row['questionDescription'] ?></td>
         <td><?= $row['questionAnswer'] ?></td>
         <td><?= $row['keyword1'] ?></td>
@@ -67,7 +68,7 @@
 
 <h1>Users</h1>
 <table>
-    <tr>
+    <tr class="tableHead">
         <th>Username:</th>
         <th>First Name:</th>
         <th>Last Name:</th>
@@ -90,11 +91,13 @@
     <tr>
         <th>KeywordId:</th>
         <th>Keyword:</th>
+        <th></th>
     </tr>
 <?php while ($row = $selectViews->resultKey->fetch_assoc()): ?>
-    <tr>
+    <tr class="tableHead">
         <td><?= $row['keywordId'] ?></td>
         <td><?= $row['keyword'] ?></td>
+        
         <td>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
                 <input type="submit" value="Edit"> 

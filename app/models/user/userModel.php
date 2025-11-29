@@ -40,9 +40,10 @@ class User
         if ($result->num_rows === 0) {
             return null;
         }
+        $row = $result->fetch_assoc();
 
         // Return the user row as an associative array
-        return $result->fetch_assoc();
+        return $row;
     }
 }
 ?>

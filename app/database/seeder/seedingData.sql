@@ -11,12 +11,6 @@ TRUNCATE TABLE category;
 TRUNCATE TABLE keyWords;
 TRUNCATE TABLE chatUser;
 
--- 1) chatUser
-INSERT INTO chatUser (firstName, lastName, userpassword, mail, username, role) VALUES
-('Fredrik', 'Husebø',  'Password123@', 'fredrik@gmail.com', 'Husebrah', 'standard'),
-('Elias',   'Simonsen','Password123@', 'elias@gmail.com',   'Gooner',   'standard'),
-('Mathias', 'Jorgensen','Password123@','mathias@gmail.com', 'Bulldog',  'standard'),
-('Adam',    'Mihn',    'Password123@', 'admin@gmail.com',   'Admin',    'admin');
 
 -- 2) keyWords
 INSERT INTO keyWords (keyword) VALUES
@@ -34,7 +28,7 @@ INSERT INTO keyWords (keyword) VALUES
 ('date'),
 ('schedule'),
 ('studentweb'),
-('study plan'),
+('study'),
 ('test'),
 ('submission'),
 ('deadlines'),
@@ -45,7 +39,7 @@ INSERT INTO keyWords (keyword) VALUES
 ('culture'),
 ('association'),
 ('event'),
-('student life'),
+('student'),
 ('social'),
 ('course'),
 ('workshop'),
@@ -62,7 +56,7 @@ INSERT INTO keyWords (keyword) VALUES
 ('student'),
 ('staff'),
 ('area'),
-('parking garage');
+('parking');
 
 -- 3) categories
 INSERT INTO category (categoryDescription) VALUES
