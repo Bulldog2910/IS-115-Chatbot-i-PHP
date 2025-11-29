@@ -5,10 +5,6 @@ $identificator = $_POST['identificatorTable'] ?? 'wrong';
         session_start();
     }
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-    
     // Sjekker at innlogget bruker har admin-rolle, ellers nektes tilgang
     if ($_SESSION['role'] !== 'admin') {
          header("Location: ../../../public/index.php");

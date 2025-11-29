@@ -1,4 +1,13 @@
 <?php 
+     // Set session cookie parameters
+    session_set_cookie_params([
+        'lifetime' => 0,           // Session expires when browser closes
+        'path' => '/',              // Available across the whole site
+        'secure' => false,          // false for localhost (HTTP)
+        'httponly' => true,         // Prevent JS access to cookie
+        'samesite' => 'Lax'         // Protect against CSRF
+    ]); 
+
     // Start session if none exists
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -19,6 +28,7 @@
 
     // Handle logout
     if (isset($_POST['logout'])) {
+        session_unset();
         session_destroy();
         header("Location: ../public/login.php");
         exit();
@@ -63,10 +73,11 @@
         <div class="user-info">
             <a class="button" href="../app/views/registrerBruker.php">User creation</a>
         </div>
-        
+<?php if($_SESSION['role'] === 'admin'):?>
         <div class="user-info">
-            <a class="button" href="../app/views/admin/admin.php">Admin</a>
+            <a class="button" href="./admin.php">Admin</a>
         </div>
+<?php endif;?>
     </nav>
             <div class="logout">
             <?php if (isset($_SESSION['username'])): ?>

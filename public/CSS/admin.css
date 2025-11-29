@@ -4,6 +4,7 @@ body {
     background: #f4f6f9;
     margin: 0;
     padding: 20px;
+    overflow-y: scroll;
 }
 
 /* MAIN TITLES */
@@ -18,7 +19,6 @@ h1 {
 a h1 {
     background-color: #4a90e2 !important;
     border-radius: 10px;
-    width: auto !important;
     padding: 10px 20px !important;
     color: white !important;
     border-left: none !important;
@@ -41,11 +41,15 @@ th {
     padding: 12px;
     text-align: left;
     font-size: 15px;
+    border-left: white solid 1px;
+    border-right: white solid 1px;
 }
 
 td {
     padding: 10px;
     border-bottom: 1px solid #eee;
+    border-left: #eee solid 1px;
+    border-right: #eee solid 1px;
 }
 
 tr:hover td {
@@ -74,6 +78,14 @@ input[value="Add question"] {
 
 input[value="Add question"]:hover {
     background: #1e8c4d;
+}
+
+nav .userinfo .button{
+    color: black;
+}
+
+.tableHea{
+    background-color: #4a90e2;
 }
 
 
