@@ -4,7 +4,7 @@
 // $successMsg  = success string
 // $data        = form values: firstName, lastName, username, mail, userpassword, repeatpassword
 ?>
-<link rel="stylesheet" href="../public/css/registrerUser.css">
+<link rel="stylesheet" href="./CSS/registrerUser.css">
 
 <h1>Registrer ny bruker</h1>
 

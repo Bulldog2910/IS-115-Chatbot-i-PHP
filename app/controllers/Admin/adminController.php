@@ -1,5 +1,5 @@
 <?php
-$identificator = $_POST['identificatorTable'] ?? 'wrong';
+$identificatorTable = $_POST['identificatorTable'] ?? ' ';
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -10,21 +10,20 @@ $identificator = $_POST['identificatorTable'] ?? 'wrong';
          header("Location: ../public/index.php");
         exit; 
     } 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && $identificator == 'keyword'){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $identificatorTable == 'keyword'){
     include __DIR__ . '/editKeywordController.php';
     include __DIR__ . '/../../views/admin/keywordForm.php'; 
-    $error = $editKeywordModel->error() ?? NULL;
-    if(isset($error)){
-        if(is_array($error)){
-            foreach($error as $errorId => $errorMessage){
-                echo "<p style='color: red;'>Error id: $errorId ($errorMessage)</p>";
+    
+        if(isset($editKeywordModel)){
+            $error = $editKeywordModel->error();
+            if(is_array($error)){
+                foreach($error as $errorId => $errorMessage){
+                    echo "<p style='color: red;'>Error id: $errorId ($errorMessage)</p>";
+                }
             }
         }
-    }
-    
-
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST' && $identificator == 'Reset Database'){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $identificatorTable == 'Reset Database'){
    include __DIR__ . '/../../config/dbOOP.php';
    $conn->query("DROP DATABASE IF EXISTS `faquiachatbot`");
    header("Location: ../public/index.php");
