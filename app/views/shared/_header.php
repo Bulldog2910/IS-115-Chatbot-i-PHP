@@ -1,17 +1,18 @@
 <?php 
      // Set session cookie parameters
-    session_set_cookie_params([
+    
+    // Start session if none exists
+    if (session_status() === PHP_SESSION_NONE) {
+        session_set_cookie_params([
         'lifetime' => 0,           // Session expires when browser closes
         'path' => '/',              // Available across the whole site
         'secure' => false,          // false for localhost (HTTP)
         'httponly' => true,         // Prevent JS access to cookie
         'samesite' => 'Lax'         // Protect against CSRF
     ]); 
-
-    // Start session if none exists
-    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    $_SESSION['role'] = $_SESSION['role'] ?? '';
 
     // Include database connection and controller
     include __DIR__ . '/../../config/db.php';
