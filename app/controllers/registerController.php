@@ -1,5 +1,5 @@
 <?php
-
+/* Register user Controller*/
 require_once __DIR__ . '/../service/registerValidator.php';
 require_once __DIR__ . '/../models/User/userModel.php';
 
@@ -14,8 +14,7 @@ class RegisterController
     /**
      * __construct()
      * --------------
-     * The controller receives an already established mysqli connection
-     * (typically created in config/db.php).
+     * The controller receives an already established mysqli connection.
      *
      * This connection is stored locally and passed into the User model,
      * ensuring all DB operations share the same connection instance.
@@ -83,7 +82,7 @@ class RegisterController
              */
             if (empty($errors)) {
                 if ($this->userModel->existsByEmail($formData['mail'])) {
-                    $errors[] = "E-postadressen er allerede registrert.";
+                    $errors[] = "The email address is already registered.";
                 }
             }
 
@@ -105,7 +104,7 @@ class RegisterController
                 ]);
 
                 // Success message sent to the view
-                $success = "Bruker registrert!";
+                $success = "User registered!";
 
                 // Clear passwords to avoid redisplaying sensitive data
                 $formData['userpassword']   = '';

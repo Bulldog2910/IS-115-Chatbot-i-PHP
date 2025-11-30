@@ -4,7 +4,7 @@
 // $successMsg  = success string
 // $data        = form values: firstName, lastName, username, mail, userpassword, repeatpassword
 ?>
-<link rel="stylesheet" href="../public/css/registrerUser.css">
+<link rel="stylesheet" href="./CSS/registrerUser.css">
 
 <h1>Registrer ny bruker</h1>
 
@@ -45,5 +45,5 @@
     <input type="text" id="mail" name="mail"
            value="<?= htmlspecialchars($data['mail'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <input type="submit" name="registrer" value="Registrer">
+    <input type="submit" name="registrer" value="Register">
 </form>
