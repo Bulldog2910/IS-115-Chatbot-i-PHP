@@ -5,7 +5,7 @@ $identificatorTable = $_POST['identificatorTable'] ?? ' ';
         session_start();
     }
 
-    // Sjekker at innlogget bruker har admin-rolle, ellers nektes tilgang
+    //Checks if user has admin role, if not, access is denied
     if ($_SESSION['role'] !== 'admin') {
          header("Location: ../public/index.php");
         exit; 

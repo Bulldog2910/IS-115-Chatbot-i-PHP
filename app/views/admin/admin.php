@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" href="./CSS/admin.css">
 
-<a href="./Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Hjem</H1></a>
+<a href="./Index.php" style="text-decoration: none; width:50px;"><H1 style="background-color: lightblue; border-radius:10px; width: 90px; padding-left:15px;">Home</H1></a>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="POST">
     <input class="button" type="submit" name="identificatorTable" value="Reset Database">
 </form>
