@@ -14,14 +14,14 @@
         <div class="messages-container" id="messagesContainer">
             <div id="qa-container" class="qa-container">
                 <div class="welcome-message">
-                    <p>Hei! Jeg er UIA chatbot, din personlige assistent. Hvordan kan jeg hjelpe deg i dag?</p>
+                    <p>Hi! I’m the UIA chatbot, your personal assistant. How can I help you today?</p>
                     <div class="quick-actions">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
-                            <button class="quick-action" id="quick-action1" name="quickQuestion" value="1">Hvordan finner jeg fram?</button>
-                            <button class="quick-action" id="quick-action2" name="quickQuestion" value="2">Når er eksamen?</button>
-                            <button class="quick-action" id="quick-action3" name="quickQuestion" value="3">Hvilke aktiviteter finnes?</button>
-                            <button class="quick-action" id="quick-action4" name="quickQuestion" value="4">Hvor ligger Uia?</button>
-                            <button class="quick-action" id="quick-action5" name="quickQuestion" value="5">Finnes det parkeringsplass?</button>
+                            <button class="quick-action" id="quick-action1" name="quickQuestion" value="1">How do I navigate?</button>
+                            <button class="quick-action" id="quick-action2" name="quickQuestion" value="2">When is the exams?</button>
+                            <button class="quick-action" id="quick-action3" name="quickQuestion" value="3">What activities are there?</button>
+                            <button class="quick-action" id="quick-action4" name="quickQuestion" value="4">Where is UIA</button>
+                            <button class="quick-action" id="quick-action5" name="quickQuestion" value="5">Are there parkingspots?</button>
                         </form>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
         
         <form class="input-area" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <div class="input-wrapper">
-                <input type="text" id="message-input" class="message-input" name="question" placeholder="Skriv din melding..." required>
+                <input type="text" id="message-input" class="message-input" name="question" placeholder="Write here..." required>
             </div>
             <button class="send-button" name="ChatbotQ" type="submit" id="btnChatbot" onclick="showThinking()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
