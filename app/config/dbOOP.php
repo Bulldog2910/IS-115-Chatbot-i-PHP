@@ -14,6 +14,7 @@ if ($conn->connect_error) {
     die();
 }
 
+//Select db if exists
 $result = mysqli_query($conn, "SHOW DATABASES LIKE 'FAQUiaChatbot'");
 if (mysqli_num_rows($result) == 0) { 
     
