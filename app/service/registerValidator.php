@@ -67,6 +67,34 @@ class RegisterValidator {
     }
 
     /**
+     * validateForUpdate()
+     * -------------------
+     * Validation entry point for updating an existing user.
+     *
+     * Differences from validate():
+     *  - Password fields are optional.
+     *  - If new password fields are left empty → password is not validated.
+     */
+    public function validateForUpdate(): array {
+        // Reset any previous errors
+        $this->errors = [];
+
+        // For update: require only basic identity/contact fields
+        $this->checkRequiredForUpdate();
+        $this->checkFirstNameFormat();
+        $this->checkLastNameFormat();
+        $this->checkEmail();
+
+        // Password rules only apply if at least one password field is provided
+        if ($this->password !== '' || $this->repeatPassword !== '') {
+            $this->checkPassword();
+            $this->checkPasswordMatch();
+        }
+
+        return $this->errors;
+    }
+
+    /**
      * checkRequired()
      * ----------------
      * Ensures all mandatory fields contain a value.
@@ -82,6 +110,26 @@ class RegisterValidator {
         if ($this->repeatPassword === '')   $this->errors[] = "Gjenta passord må fylles ut.";
     }
 
+    /**
+     * checkRequiredForUpdate()
+     * ------------------------
+     * Required-field check for user updates.
+     *
+     * For editing an existing user we require:
+     *  - firstName
+     *  - lastName
+     *  - username
+     *  - email
+     *
+     * Password fields are optional here, because an admin/user may update
+     * profile data without changing the password.
+     */
+    private function checkRequiredForUpdate(): void {
+        if ($this->firstName === '')  $this->errors[] = "Fornavn må fylles ut.";
+        if ($this->lastName === '')   $this->errors[] = "Etternavn må fylles ut.";
+        if ($this->username === '')   $this->errors[] = "Brukernavn må fylles ut.";
+        if ($this->email === '')      $this->errors[] = "E-post må fylles ut.";
+    }
 
     private function checkFirstNameFormat(): void {
         /**

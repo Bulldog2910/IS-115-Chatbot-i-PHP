@@ -127,5 +127,82 @@ class User
         // If one row exists → email already registered
         return $stmt->num_rows > 0;
     }
+
+    /**
+     * deleteUserById()
+     * ----------------
+     * Deletes a user by ID.
+     * Uses a prepared statement for safety.
+     * Returns true on success, false if the statement fails.
+     */
+    public function deleteUserById(int $userId): bool
+    {
+        $sql = "DELETE FROM chatUser WHERE userId = ?";
+        $stmt = $this->conn->prepare($sql);
+
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param('i', $userId);
+        return $stmt->execute();
+    }
+
+
+    /**
+     * updateUserById()
+     * -----------------
+     * Updates user information in the database.
+     *
+     * The password is only updated if a new password is provided.
+     * Otherwise, the existing password is kept.
+     *
+     * Returns true on success, false if the statement fails.
+     */
+    public function updateUserById(
+        int $userId,
+        string $username,
+        string $firstName,
+        string $lastName,
+        string $mail,
+        string $role,
+        string $newPassword = ''
+    ): bool {
+
+        // Base query (without password field)
+        $sql = "UPDATE chatUser
+                SET username  = ?,
+                    firstName = ?,
+                    lastName  = ?,
+                    mail      = ?,
+                    role      = ?";
+
+        $types  = 'sssss';
+        $params = [$username, $firstName, $lastName, $mail, $role];
+
+        // Add password update if a new one is provided
+        if ($newPassword !== '') {
+            $sql .= ", userpassword = ?";
+            $types .= 's';
+
+            $hashed = password_hash($newPassword, PASSWORD_DEFAULT);
+            $params[] = $hashed;
+        }
+
+        // Add the WHERE clause
+        $sql  .= " WHERE userId = ?";
+        $types .= 'i';
+        $params[] = $userId;
+
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+
+        // Bind all parameters dynamically
+        $stmt->bind_param($types, ...$params);
+
+        return $stmt->execute();
+    }
 }
 ?>

@@ -129,9 +129,6 @@ private function getKeywordArr($lemmaArr)
 
         /**
          * STEP 2: Fetch synonyms from Datamuse API
-         * Synonyms expand the search so:
-         *      Input: "hold"
-         *      → synonyms: ["retain", "carry", "book", ...]
          */
         $synonyms = $this->getSynonymsFromDatamuse($word);
 
