@@ -1,61 +1,61 @@
 <?php
 
 require_once __DIR__ . '/../service/registerValidator.php';
-require_once __DIR__ . '/../models/User/registerModel.php';
+require_once __DIR__ . '/../models/User/userModel.php';
 
 class RegisterController
 {
-    // Shared mysqli connection for this request
+    // Active database connection shared across this controller instance
     private mysqli $conn;
 
-    // Model responsible for persisting new users
-    private NewUser $userModel;
+    // Model handling all user-related database operations
+    private User $userModel;
 
     /**
      * __construct()
      * --------------
-     * The controller receives a ready-to-use mysqli connection
-     * (usually created in config/db.php).
+     * The controller receives an already established mysqli connection
+     * (typically created in config/db.php).
      *
-     * It also instantiates the NewUser model, which encapsulates
-     * all database logic related to creating users.
+     * This connection is stored locally and passed into the User model,
+     * ensuring all DB operations share the same connection instance.
      */
     public function __construct(mysqli $conn)
     {
         $this->conn      = $conn;
-        $this->userModel = new NewUser($conn);
+        $this->userModel = new User($conn);
     }
 
     /**
      * register()
      * ----------
-     * Handles both GET and POST for the registration page.
+     * Handles both GET and POST actions for the registration form.
      *
-     * Flow:
-     *  - On GET:
-     *      * Show empty form (or previously submitted data if needed)
-     *  - On POST:
-     *      * Validate user input using RegisterValidator
-     *      * If validation passes → hash password and create user through model
-     *      * If validation fails → pass errors and form values to the view
+     * Request handling flow:
      *
-     * The method always ends by loading the view
-     * `../views/registerUser.view.php`, which uses:
-     *  - $error      : array of error messages
-     *  - $successMsg : success message string
-     *  - $data       : array of form values to refill the form
+     * GET request  -> Display empty form.
+     *
+     * POST request ->
+     *   1. Pre-fill $formData with submitted values (so the user does not lose input)
+     *   2. Validate fields using RegisterValidator
+     *   3. Check email uniqueness in the database
+     *   4. If all checks pass → hash password + store user in DB
+     *   5. Pass success or error messages to the view
+     *
+     * The method concludes by requiring the view template, which uses:
+     *   - $error
+     *   - $successMsg
+     *   - $data
      */
     public function register(): void
     {
-        // Default state: no errors and no success message
+        // Default values before form submission
         $errors  = [];
         $success = '';
 
         /**
-         * Pre-populate form data:
-         * This ensures that if validation fails, the user does not lose
-         * everything they typed. We reuse this array later in both
-         * the error and success cases.
+         * Collect initial form values.
+         * These values repopulate the form when validation fails.
          */
         $formData = [
             'firstName'      => $_POST['firstName']      ?? '',
@@ -65,19 +65,37 @@ class RegisterController
             'userpassword'   => $_POST['userpassword']   ?? '',
             'repeatpassword' => $_POST['repeatpassword'] ?? '',
         ];
-
-        // Only run validation and insert logic on HTTP POST (form submission)
+        
+        // Handle form submission
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // 1) Validate raw POST data using a dedicated validator service
+
+            /**
+             * STEP 1 – Validate basic input (format, required fields, password rules, etc.)
+             * The validator processes ONLY the raw form data.
+             */
             $validator = new RegisterValidator($_POST);
             $errors    = $validator->validate();
 
-            // 2) If no validation errors, proceed with user creation
+            /**
+             * STEP 2 – Check if the email already exists in the database.
+             * This is a database-level validation and must be performed
+             * AFTER the basic validator approves the email format.
+             */
             if (empty($errors)) {
-                // Securely hash the password before persisting it
+                if ($this->userModel->existsByEmail($formData['mail'])) {
+                    $errors[] = "E-postadressen er allerede registrert.";
+                }
+            }
+
+            /**
+             * STEP 3 – If all validation passed (no errors), create new user
+             * and store the hashed password in the database.
+             */
+            if (empty($errors)) {
+                // Secure hashing using PHP’s default algorithm (bcrypt/argon2)
                 $hashedPassword = password_hash($formData['userpassword'], PASSWORD_DEFAULT);
 
-                // Delegate database insert to the model
+                // Create the user using the User model
                 $this->userModel->createUser([
                     'firstName' => $formData['firstName'],
                     'lastName'  => $formData['lastName'],
@@ -86,25 +104,27 @@ class RegisterController
                     'password'  => $hashedPassword,
                 ]);
 
-                // Inform the view that registration succeeded
+                // Success message sent to the view
                 $success = "Bruker registrert!";
 
-                // Clear password fields so they are not shown back to the user
+                // Clear passwords to avoid redisplaying sensitive data
                 $formData['userpassword']   = '';
                 $formData['repeatpassword'] = '';
+
+                header("Location: ../public/Index.php");
+                exit;
             }
         }
 
         /**
-         * Expose data to the view:
-         * The included view file `registerUser.view.php` expects
-         * these variable names in the local scope.
+         * Prepare variables for the view.
+         * The view expects these exact names to exist in scope.
          */
         $error      = $errors;
         $successMsg = $success;
         $data       = $formData;
 
-        // Render the registration form (with errors/success/data if applicable)
+        // Load the HTML/PHP view that presents the form and results
         require __DIR__ . '/../views/registerUser.view.php';
     }
 }
