@@ -43,15 +43,15 @@ class LoginController
 
         // Validate email field
         if (!$this->email) {
-            $this->errorMsg['email'] = "E-post må oppgis"; // Email not entered
+            $this->errorMsg['email'] = "Email must be provided"; // Email not entered
         } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             // Email entered but invalid format
-            $this->errorMsg['email'] = "Ugyldig e-postadresse";
+            $this->errorMsg['email'] = "Invalid email address";
         }
 
         // Validate that password field is not empty
         if (!$password) {
-            $this->errorMsg['password'] = "Passord må oppgis";
+            $this->errorMsg['password'] = "Password must be provided";
         }
 
         // Stop here if basic validation failed
@@ -64,14 +64,14 @@ class LoginController
 
         // If no user with that email exists
         if (!$user) {
-            $this->errorMsg['login'] = "Feil e-post eller passord";
+            $this->errorMsg['login'] = "Incorrect email or password";
             return;
         }
 
         // Verify that the raw password typed by the user matches the stored hash.
         // password_verify() safely compares the input to the hash.
         if (!password_verify($password, $user['userpassword'])) {
-            $this->errorMsg['Wrong password'] = "Feil passord";
+            $this->errorMsg['Wrong password'] = "Wrong password";
             return;
         }
 

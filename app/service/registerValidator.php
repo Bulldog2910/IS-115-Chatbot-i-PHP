@@ -74,12 +74,12 @@ class RegisterValidator {
      * and provides user-friendly instructions.
      */
     private function checkRequired(): void {
-        if ($this->firstName === '')        $this->errors[] = "Fornavn må fylles ut.";
-        if ($this->lastName === '')         $this->errors[] = "Etternavn må fylles ut.";
-        if ($this->username === '')         $this->errors[] = "Brukernavn må fylles ut.";
-        if ($this->email === '')            $this->errors[] = "E-post må fylles ut.";
-        if ($this->password === '')         $this->errors[] = "Passord må fylles ut.";
-        if ($this->repeatPassword === '')   $this->errors[] = "Gjenta passord må fylles ut.";
+        if ($this->firstName === '')        $this->errors[] = "First name is required.";
+        if ($this->lastName === '')         $this->errors[] = "Last name is required.";
+        if ($this->username === '')         $this->errors[] = "Username is required.";
+        if ($this->email === '')            $this->errors[] = "e-mail is required.";
+        if ($this->password === '')         $this->errors[] = "Password is required.";
+        if ($this->repeatPassword === '')   $this->errors[] = "Repeat password is required.";
     }
 
 
@@ -99,7 +99,7 @@ class RegisterValidator {
          * The `u` modifier ensures proper UTF-8 handling of multibyte characters.
          */
         if (!preg_match('/^[A-Za-zÆØÅæøå \-]+$/u', $this->firstName)) {
-            $this->errors[] = "Fornavn inneholder ugyldige tegn.";
+            $this->errors[] = "First name contains invalid characters.";
             return;
         }
 
@@ -128,7 +128,7 @@ class RegisterValidator {
          * Same rules as for first name: letters, spaces, and hyphens.
          */
         if (!preg_match('/^[A-Za-zÆØÅæøå \-]+$/u', $this->lastName)) {
-            $this->errors[] = "Etternavn inneholder ugyldige tegn.";
+            $this->errors[] = "Last name contains invalid characters.";
             return;
         }
 
@@ -151,7 +151,7 @@ class RegisterValidator {
      */
     private function checkEmail(): void {
         if ($this->email !== '' && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = "'{$this->email}' er ikke en gyldig e-postadresse.";
+            $this->errors[] = "'{$this->email}' is not a valid email address.";
         }
     }
 
@@ -178,14 +178,14 @@ class RegisterValidator {
         $feil = [];
 
         // Check individual strength requirements
-        if (strlen($pass) < 9)                 $feil[] = "minst 9 tegn";
-        if (!preg_match('/[A-ZÆØÅ]/', $pass))  $feil[] = "minst én stor bokstav";
-        if (!preg_match('/[0-9]/', $pass))     $feil[] = "minst ett tall";
-        if (!preg_match('/[\W_]/', $pass))     $feil[] = "minst ett spesialtegn";
+        if (strlen($pass) < 9)                 $feil[] = "At least 9 characters";
+        if (!preg_match('/[A-ZÆØÅ]/', $pass))  $feil[] = "At least one uppercase letter";
+        if (!preg_match('/[0-9]/', $pass))     $feil[] = "At least one number";
+        if (!preg_match('/[\W_]/', $pass))     $feil[] = "At least one special character";
 
         // If any requirements are missing, add a combined error message
         if (!empty($feil)) {
-            $this->errors[] = "Passordet er ugyldig: mangler " . implode(', ', $feil) . ".";
+            $this->errors[] = "Password is invalid: missing " . implode(', ', $feil) . ".";
         }
     }
 
@@ -202,7 +202,7 @@ class RegisterValidator {
             $this->repeatPassword !== '' &&
             $this->password !== $this->repeatPassword
         ) {
-            $this->errors[] = "Passordene er ikke like.";
+            $this->errors[] = "Passwords do not match.";
         }
     }
 }

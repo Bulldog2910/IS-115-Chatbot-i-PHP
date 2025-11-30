@@ -45,5 +45,5 @@
     <input type="text" id="mail" name="mail"
            value="<?= htmlspecialchars($data['mail'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <input type="submit" name="registrer" value="Registrer">
+    <input type="submit" name="registrer" value="Register">
 </form>
