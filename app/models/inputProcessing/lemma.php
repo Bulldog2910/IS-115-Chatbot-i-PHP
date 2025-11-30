@@ -8,8 +8,39 @@ class lemma{
         foreach($wordArr as $word){
             $this->lemmainput .= " " . $word;
         }
+        $path = realpath(__DIR__ . '/../../../text.text');
+
+        if ($path === false) {
+            echo $path;
+            die("Error: Secret file not found. Path resolved incorrectly.");
+            
+        }
+
+        if (!is_readable($path)) {
+            die("Error: Secret file exists but is not readable. Check file permissions.");
+        }
+
+        $contents = file_get_contents($path);
+
+        if ($contents === false) {
+            die("Error: Failed to read secret file.");
+        }
+
+        $apiKey = trim($contents);
+        $api = fopen($path, "r");
+        if ($api) {
+        // Get the size of the file to read the entire content
+        $filesize = filesize($path);
+
+        // Read the entire content of the file
+        $contents = fread($api, $filesize);
+
+        fclose($api); // Close the file handle
+        } else {
+            echo "Error: Could not open the file.";
+        }
         
-        $apiKey = '1bbeb6d2c1825e65968e8968d7d7a3e1aacc6865'; // DANGER DANGER CHANGE THIS - REMEMBER MATHIAS
+        $apiKey = $contents;
 
         $curl = curl_init();
 
