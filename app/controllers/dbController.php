@@ -1,17 +1,16 @@
 <?php
-$errors = []; // collect errors here
-
-// echo "<br>Starting database setup...<br>";
+/* DB creation controller */
+$dbCreationLog = [];
 
 $result = mysqli_query($conn, "SHOW DATABASES LIKE 'FAQUiaChatbot'");
 
 // Database doesn't exist, create it
 if (mysqli_num_rows($result) == 0) { 
-    // echo "Database doesn't exist<br>";
+    $dbCreationLog[] = "Database doesn't exist";
     
     $createDb = "CREATE DATABASE FAQUiaChatbot";
     if (mysqli_query($conn, $createDb)) {
-        // echo "Database created successfully.<br>";
+        $dbCreationLog[] = "Database created successfully";
         
         if (!mysqli_select_db($conn, 'FAQUiaChatbot')) {
             $errors[] = "Error selecting newly created database: " . mysqli_error($conn);
@@ -22,7 +21,7 @@ if (mysqli_num_rows($result) == 0) {
         die();
     } 
 } else {
-    // echo "Database exists.<br>";
+    $dbCreationLog[] = "Database exists.<br>";
 }
 
 // Use database
@@ -32,7 +31,7 @@ $result = mysqli_query($conn, "SHOW TABLES LIKE 'chatUser'");
 
 // If table exist dont create
 if (mysqli_num_rows($result) == 0) {
-    // echo "Tables don't exist, creating them...<br>";
+    $dbCreationLog[] = "Tables don't exist, creating them...";
     
     // Read schema.sql and run
     $sqlPath = __DIR__ . "/../database/schema.sql";
@@ -45,7 +44,7 @@ if (mysqli_num_rows($result) == 0) {
     $sql = file_get_contents($sqlPath);
     
     if (mysqli_multi_query($conn, $sql)) {
-        // echo "Tables created successfully<br>";
+        $dbCreationLog[] = "Tables created successfully";
         
         // Clear remaining results from multi_query
         while (mysqli_next_result($conn)) {;}
@@ -54,7 +53,7 @@ if (mysqli_num_rows($result) == 0) {
         // no die here originally, so kept that behavior
     }
 } else {
-    // echo "Tables exist, skip creation<br>";
+    $dbCreationLog[] = "Tables exist, skip creation";
 }
 
 /*
@@ -67,7 +66,7 @@ $checkData = mysqli_query($conn, "SELECT COUNT(*) AS rowCount FROM chatUser");
 $dataRow = mysqli_fetch_assoc($checkData);
 
 if ($dataRow['rowCount'] == 0) {
-    // echo "No data found — running seeder...<br>";
+    $dbCreationLog[] = "No data found, running seeder...";
 
     $seedPath = __DIR__ . "/../database/seeder/seedingData.sql";
 
@@ -79,7 +78,7 @@ if ($dataRow['rowCount'] == 0) {
     $seedSql = file_get_contents($seedPath);
 
     if (mysqli_multi_query($conn, $seedSql)) {
-        // echo "Seeding completed.<br>";
+        $dbCreationLog[] = "Seeding completed";
         while (mysqli_next_result($conn)) {;} // flush buffer
 
         $hashedpassword = password_hash('Password123@', PASSWORD_DEFAULT);
@@ -108,9 +107,9 @@ if ($dataRow['rowCount'] == 0) {
         $stmt->execute();
 
     } else {
-        // echo "Data already exists — skipping seed.<br>";
+        $dbCreationLog[] = "Data already exists, skipping seed.";
     }
 }
 
-// echo "Setup complete!<br>";
+$dbCreationLog[] = "Setup complete!";
 ?>

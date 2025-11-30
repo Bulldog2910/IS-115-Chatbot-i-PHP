@@ -1,47 +1,45 @@
 <?php
-class lemma{
-    public $lemmainput;
-    public $lemmaArr;
-    public $lemmaSentence;
+/*
+ * lemma Class
+ *
+ * Purpose:
+ *   - Take an array of words (user input), send it to an NLP API (nlpcloud.io),
+ *     and extract the lemma (base form) of each token.
+ *   - Store lemmas as an array and reconstruct the sentence with lemmatized words.
+ */
+class lemma {
+    public $lemmainput;       // Original input as a string
+    public $lemmaArr = [];    // Array of lemmas for each token
+    public $lemmaSentence;    // Reconstructed sentence from lemmas
+
+    /**
+     * Constructor
+     * @param array $wordArr Array of input words
+     */
     public function __construct($wordArr)
     {
-        foreach($wordArr as $word){
-            $this->lemmainput .= " " . $word;
-        }
+        // Join words into a single string
+        $this->lemmainput = implode(" ", $wordArr);
+
+        // Resolve the API key file
         $path = realpath(__DIR__ . '/../../../text.text');
 
         if ($path === false) {
-            echo $path;
             die("Error: Secret file not found. Path resolved incorrectly.");
-            
         }
 
         if (!is_readable($path)) {
             die("Error: Secret file exists but is not readable. Check file permissions.");
         }
 
-        $contents = file_get_contents($path);
-
-        if ($contents === false) {
+        // Read the API key from the file
+        $apiKey = file_get_contents($path);
+        if ($apiKey === false) {
             die("Error: Failed to read secret file.");
         }
+        $apiKey = trim($apiKey);
 
-        $apiKey = trim($contents);
-        $api = fopen($path, "r");
-        if ($api) {
-        // Get the size of the file to read the entire content
-        $filesize = filesize($path);
-
-        // Read the entire content of the file
-        $contents = fread($api, $filesize);
-
-        fclose($api); // Close the file handle
-        } else {
-            echo "Error: Could not open the file.";
-        }
-        
-        $apiKey = $contents;
-
+        // Initialize cURL for NLPCloud API
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -55,16 +53,19 @@ class lemma{
             CURLOPT_POSTFIELDS => json_encode(["text" => $this->lemmainput]),
         ]);
 
+        // Execute API request
         $response = curl_exec($curl);
 
         if (curl_errno($curl)) {
             echo "cURL error: " . curl_error($curl);
         }
 
-        // Just print the raw response
+        curl_close($curl);
+
+        // Decode JSON response
         $data = json_decode($response, true);
 
-        // Extract lemmas into an array
+        // Extract lemmas for each token
         if (isset($data['tokens'])) {
             foreach ($data['tokens'] as $token) {
                 if (isset($token['lemma'])) {
@@ -72,9 +73,17 @@ class lemma{
                     $this->lemmaSentence .= $token['lemma'] . " ";
                 }
             }
+            $this->lemmaSentence = trim($this->lemmaSentence); // remove trailing space
         }
     }
-    public function getLemma(){
+
+    /**
+     * Get the array of lemmatized tokens
+     * @return array Lemmas of the input words
+     */
+    public function getLemma()
+    {
         return $this->lemmaArr;
     }
 }
+?>

@@ -1,5 +1,5 @@
 <?php
-
+/* Register user Controller*/
 require_once __DIR__ . '/../service/registerValidator.php';
 require_once __DIR__ . '/../models/User/userModel.php';
 

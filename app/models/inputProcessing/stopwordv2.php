@@ -1,5 +1,7 @@
 <?php
 class stopwordV2{
+    // List of common English stopwords stored as keys for fast lookup
+    // List gathered from NLTK stopwords library
     public $stopwords = [
         'a' => true,
         'about' => true,
@@ -200,21 +202,24 @@ class stopwordV2{
         'yourselves' => true,
         'you\'ve' => true
     ];
-    public $filteredArr;
+    //Array to hold the filtered words after stopwords removal
+    public $filteredArr = [];
 
-
-    public function __construct($strArr)
-    {
-        foreach($strArr as $word){
-            if(!isset($this->stopwords[$word])){
+    // Constructor accepts an array of words to filter
+    public function __construct($strArr) {
+        // Loop through each word in input array
+        foreach($strArr as $word) {
+            // Check if the word is NOT a stopword
+            if (!isset($this->stopwords[$word])) {
+                // If not a stopword, add it to filteredArr
                 $this->filteredArr[] = $word;
             }
         }
     }
 
-    public function getStopwordsV2(){
+    // Getter method to return the filtered words
+    public function getStopwordsV2() {
         return $this->filteredArr;
     }
 }
-
-
+?>
