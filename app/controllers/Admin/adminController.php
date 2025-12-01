@@ -26,8 +26,8 @@ class AdminController
             // If edit keyword button is pressed run editKeywordController
             if ($keywordUpdate == 'keywordUpdate') {
                 include __DIR__ . '/editKeywordController.php';
-                // Make instance of editKeywordController
-                $editkeyword = new editKeywordController($_POST);
+                //Make instance of editKeywordController
+                $editkeyword = new editKeywordController($this->conn, $_POST);
                 $editkeyword->handle();
             }
             include __DIR__ . '/../../views/admin/keywordForm.php';
