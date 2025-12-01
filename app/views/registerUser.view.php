@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="./CSS/registrerUser.css">
 
 
-
 <?php if (!empty($error)): ?>
        <ul style="color:red;">
               <?php foreach ($error as $msg): ?>

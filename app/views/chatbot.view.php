@@ -25,7 +25,8 @@
                         </form>
                     </div>
                 </div>
-                   <?php 
+                <div id="ajax-container">
+                    <?php 
                         if (isset($_SESSION['chatbotLog'])) {
                             foreach ($_SESSION['chatbotLog'] as $QAArr) {
                                 foreach ($QAArr as $innerArr) {
@@ -58,14 +59,16 @@
                                 }
                             }
                         }
-                    ?>
+                    
+                   ?>
+                </div>
             </div>
             <div>
                 <img id="chatThinking" src="images/07-57-40-974_512.webp" alt="Chatbot is thinking..." >
             </div>
         </div>
         
-        <form class="input-area" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+        <form class="input-area" id="chatform" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <div class="input-wrapper">
                 <input type="text" id="message-input" class="message-input" name="question" placeholder="Write here..." required>
             </div>
@@ -79,20 +82,49 @@
         </form>
         </div>
     </div>
-<script>
-    const container = document.getElementById('qa-container');
+<script> 
+    const container = document.getElementById('qa-container'); 
+    container.scrollTop = container.scrollHeight; 
+    function showThinking() { 
+        input = document.getElementById('message-input'); 
+        if(input.value.trim() === ""){ 
+            return; 
+            // do nothing if empty 
+        } else{ 
+                /* Access image by id and change the display property to block*/ 
+                document.getElementById('chatThinking') .style.opacity = "1"; 
+            } 
+    } 
+    window.addEventListener('load', () => {
+    const container = document.getElementById('messagesContainer');
+    const thinking = document.getElementById('chatThinking');
+
+    // Auto-scroll to the bottom
     container.scrollTop = container.scrollHeight;
 
-    function showThinking() {
-        input = document.getElementById('message-input');
-        if(input.value.trim() === ""){
-            return; // do nothing if empty
-        } else{
-            /* Access image by id and change 
-            the display property to block*/
-            document.getElementById('chatThinking')
-            .style.opacity = "1";
-        }   
-    }
-</script>
+    // Hide the thinking image by default
+    thinking.style.opacity = 1; // show while "typing"
+    
+    // Get the last bot message
+    const botMessages = document.querySelectorAll('.message.bot .message-bubble');
+    if(botMessages.length > 0){
+        const lastBubble = botMessages[botMessages.length - 1];
+        const fullText = lastBubble.textContent;
+        lastBubble.textContent = ''; // clear text to simulate typing
 
+        let i = 0;
+        const typingInterval = setInterval(() => {
+            lastBubble.textContent += fullText.charAt(i);
+            i++;
+            if(i >= fullText.length){
+                clearInterval(typingInterval);
+                // hide thinking image after typing is done
+                thinking.style.opacity = 0;
+            }
+        }, 30); // typing speed in ms
+    } else {
+        // no messages, hide thinking immediately
+        thinking.style.opacity = 0;
+    }
+    });
+</script>

@@ -14,7 +14,7 @@
 
             echo "<style> #quick-action" . $quickQ->value . "{background-color: #FF6B6B; color: white;} </style>";
 
-        }else{
+        }else {
             require_once __DIR__ . '/../../models/chatbot/chatbotModel.php';
             require_once __DIR__ . '/../../models/chatbot/scoringModel.php';
             require_once __DIR__ . '/../../models/inputProcessing/stopwordv2.php';
@@ -39,16 +39,15 @@
             //If lemma api didnt work then do it without lemmanized input
             if(!empty($lemmaArr)){
                 $chatbot = new chatbotModel($lemmaArr);
-                $score = new scoring($chatbot);
+                $score = new scoring($chatbot, $_POST['question']);
             }else{
                 $chatbot = new chatbotModel($stopwordArr);
-                $score = new scoring($chatbot);
+                $score = new scoring($chatbot, $_POST['question']);
             }
             
             //Store output
             $chatbotLog[] = $score->bestScore;
             $_SESSION['chatbotLog'] = $chatbotLog;
         }
-    
     }
 ?>

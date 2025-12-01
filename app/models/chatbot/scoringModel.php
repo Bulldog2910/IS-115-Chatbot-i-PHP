@@ -16,14 +16,15 @@ class scoring {
     /**
      * Constructor
      * @param object $chatbotModel An instance of chatbotModel containing matched questions & keywords
+     * @param object $originalQ $_POST['question], the original question writen in the input of the chatbot
      */
-    public function __construct($chatbotModel)
+    public function __construct($chatbotModel, $originalQ)
     {
         // If no keywords were found in the user's input
         if($chatbotModel->QArr == "Found no keywords in the question") {
             $this->bestScore['No keyword'] = [
-                'No keywords found',
-                'Try again with different wording'
+                $originalQ,
+                'I didnt quite get that, can you try again with different phrasing?'
             ];
         } else {
             // Store matched questions and keywords
