@@ -69,10 +69,7 @@
 </head>
 <body>
     <nav>
-        <div class="user-info">
-            <a class="button" href="../public/registerUser.php">User creation</a>
-        </div>
-        <?php if($_SESSION['role'] === 'admin'):?>
+        <?php if($_SESSION['role'] === 'admin' && $current !== 'admin.php'):?>
                 <div class="user-info">
                     <a class="button" href="./admin.php">Admin</a>
                 </div>

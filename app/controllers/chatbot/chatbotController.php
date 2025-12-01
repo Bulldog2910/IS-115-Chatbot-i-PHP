@@ -1,16 +1,10 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
     /* Chatbot controller */
 
     $chatbotLog = $_SESSION['chatbotLog'] ?? [];
 
     // POST quick question or chatbot input
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        $newMessagesHtml = ''; // This will hold HTML to return for AJAX
-
         if(isset($_POST['quickQuestion'])){
             require __DIR__ . '/../../models/chatbot/quickQModel.php';
             
@@ -20,7 +14,7 @@
 
             echo "<style> #quick-action" . $quickQ->value . "{background-color: #FF6B6B; color: white;} </style>";
 
-        }else if (isset($_POST['question'])){
+        }else {
             require_once __DIR__ . '/../../models/chatbot/chatbotModel.php';
             require_once __DIR__ . '/../../models/chatbot/scoringModel.php';
             require_once __DIR__ . '/../../models/inputProcessing/stopwordv2.php';
@@ -45,16 +39,15 @@
             //If lemma api didnt work then do it without lemmanized input
             if(!empty($lemmaArr)){
                 $chatbot = new chatbotModel($lemmaArr);
-                $score = new scoring($chatbot);
+                $score = new scoring($chatbot, $_POST['question']);
             }else{
                 $chatbot = new chatbotModel($stopwordArr);
-                $score = new scoring($chatbot);
+                $score = new scoring($chatbot, $_POST['question']);
             }
             
             //Store output
             $chatbotLog[] = $score->bestScore;
             $_SESSION['chatbotLog'] = $chatbotLog;
         }
-            exit;
     }
 ?>
