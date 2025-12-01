@@ -1,14 +1,20 @@
 <?php
-
-// $error       = array of error messages
+// Form that registers a new user
 // $successMsg  = success string
 // $data        = form values: firstName, lastName, username, mail, userpassword, repeatpassword
+?>
+
+<?php
+// Load CSS stylesheet
 ?>
 <link rel="stylesheet" href="./CSS/registrerUser.css">
 
 <h1>Register new user</h1>
 
 <?php if (!empty($error)): ?>
+    <?php
+    // Show error messages in red
+    ?>
     <ul style="color:red;">
         <?php foreach ($error as $msg): ?>
             <li><?= htmlspecialchars($msg, ENT_QUOTES, 'UTF-8') ?></li>
@@ -17,9 +23,15 @@
 <?php endif; ?>
 
 <?php if (!empty($successMsg)): ?>
+    <?php
+    // Show success message in green
+    ?>
     <p style="color:green;"><?= htmlspecialchars($successMsg, ENT_QUOTES, 'UTF-8') ?></p>
 <?php endif; ?>
 
+<?php
+// Registration form
+?>
 <form method="post" action="">
     <label for="firstName">First name:</label><br>
     <input type="text" id="firstName" name="firstName"
@@ -45,5 +57,8 @@
     <input type="text" id="mail" name="mail"
            value="<?= htmlspecialchars($data['mail'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
+    <?php
+    // Submit button
+    ?>
     <input type="submit" name="register" value="Register">
 </form>
