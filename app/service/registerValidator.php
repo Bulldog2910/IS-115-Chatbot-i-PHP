@@ -80,6 +80,7 @@ class RegisterValidator {
         $this->checkRequired();
         $this->checkFirstNameFormat();
         $this->checkLastNameFormat();
+        $this->checkUsernameFormat();
         $this->checkEmail();
         $this->checkPassword();
         $this->checkPasswordMatch();
@@ -104,6 +105,8 @@ class RegisterValidator {
         $this->checkRequiredForUpdate();
         $this->checkFirstNameFormat();
         $this->checkLastNameFormat();
+        $this->checkUsernameFormat();
+
         $this->checkEmail();
 
         // Password rules only apply if at least one password field is provided
@@ -210,7 +213,23 @@ class RegisterValidator {
             MB_CASE_TITLE,
             'UTF-8'
         );
-}
+    }
+
+        private function checkUsernameFormat(): void {
+        /**
+         * Skip validation if the field is empty.
+         */
+        if ($this->username === '') return;
+
+        /**
+         * Validate that the last name only contains allowed characters.
+         * Same rules as for first name: letters, spaces, and hyphens.
+         */
+        if (!preg_match('/^[A-Za-zÆØÅæøå \-]+$/u', $this->username)) {
+            $this->errors[] = "Username contains invalid characters.";
+            return;
+        }
+    }
 
     /**
      * checkEmail()
