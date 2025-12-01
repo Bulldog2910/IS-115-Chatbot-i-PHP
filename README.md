@@ -1,39 +1,131 @@
+
 # IS-115-Chatbot-i-PHP
-Dette er en oppgave for faget Webprogrammering i php (IS-115). Applikasjonen er en Regel-basert chatbot som svarer på UIA relaterte spørsmål ved å analysere tekst og identifisere relevante nøkkel ord og sammaenlingner disse med lagrede spørsmål og svar i databasen.
 
-Steg for å kjøre prosjektet:
-1. Last ned xammp
-2. Start en server og database på xammp appen som anvist på bildet under:
+Dette er en obligatorisk oppgave i faget **IS-115 Webprogrammering i PHP**.
+Applikasjonen er en **regel-basert chatbot** som svarer på **UiA-relaterte spørsmål** ved å analysere tekst, identifisere relevante nøkkelord og sammenligne disse med lagrede spørsmål og svar i databasen.
 
-<img width="817" height="520" alt="xampp bilde" src="https://github.com/user-attachments/assets/e36a5c81-679a-4f64-a289-ef2ba4123a20" />
-Figur: 1.
+## Kort om hvordan chatboten fungerer
 
-4. Skriv inn denne lenken i nettleser: http://localhost/chatbot/IS-115-Chatbot-i-PHP/app/views/login.php
+1. Brukerens spørsmål tas inn som en tekststreng.
+2. Teksten deles opp i ord.
+3. Stopwords fjernes(ved å sjekke opp mot et array som inneholder typiske stopwords).
+4. Ordene normaliseres til grunnform (f.eks. *biler* → *bil*) ved hjelp av et NLP-API.
+5. De rensede ordene sendes videre til et synonym-API.
+6. Alle ord (inkludert synonymer) sjekkes mot nøkkelordene som ligger lagret i databasen.
+7. Matcher chatboten ett eller flere nøkkelord, henter den frem tilhørende spørsmål og svar
+8. Disse spørsmålene og svarene blir deretter kjørt gjennom et scoring algoritme som velger ut spørsmålet med høyest score.
+9. Spørsmål og svar med høyest score blir vist til brukeren sammen med tidliggere stilte spørsmål
+
+Den enkleste gratis tilgjengelige API-ene vi fant for lemmatisering og synonymer var engelske. Vi valgte derfor å gjøre hele webapplikasjonen på engelsk (UI, spørsmål, svar og nøkkelord).
+
+---
+
+## Teknisk oversikt
+
+* Backend: PHP (prosjekt i tråd med IS-115-oppsett)
+* Webserver/database: XAMPP (Apache + MySQL)
+* Datamodell:
+
+  * Egen tabell for nøkkelord
+  * Egen tabell for spørsmål/svar
+  * Egentabell for brukere
+  * Egentabell for kategorier
+  * Spørsmål kobles til opptil 10 nøkkelord (se Figur 4 i skjermbildene)
+* Eksterne API-er:
+
+  * NLPCloud (lemmatisering / normalisering av ord)
+  * Synonym-API (engelsk) for å utvide brukerens ord til flere relevante varianter
+* Viktig: Chatboten bruker **ikke** et generativt AI-API for å lage svar. Alle svar er forhåndsdefinerte i databasen og styres via nøkkelord.
+* Viktig: Lemma funksjon funker kun om Api key fra NLP cloud blir puttet i en text.text fil i root, i søskenmappe til app og public
+
+---
+
+## Steg for å kjøre prosjektet
+
+1. **Installer XAMPP**
+
+   Last ned og installer XAMPP (Apache + MySQL).
+
+2. **Start server og database**
+
+   Åpne XAMPP Control Panel og start:
+
+   * `Apache`
+   * `MySQL`
 
 
-Den vil ta deg til login siden, der kan du skrive inn email: elias.simonsen@wemail.no og passord pokemon. 
-<img width="810" height="786" alt="loggin" src="https://github.com/user-attachments/assets/28020bf7-3b0f-452d-b3bd-69b0ab87abc9" />
-Figur: 2.
 
-Etter du har logget inn vil du komme til hovedsiden for brukeren der du kan stille spørsmål til chatbotten:
-<img width="882" height="896" alt="hovedsiden" src="https://github.com/user-attachments/assets/b0844e15-793d-4fab-9f91-f0db7abc509d" />
-Figur: 3.
 
-Hvordan fungerer chatboten?
+3. **Plasser prosjektet i `htdocs`**
 
-Brukersiden:
+   * Klon eller kopier prosjektet inn i XAMPP sin `htdocs`-mappe, og lag en mappe som heter chatbot:
+     `C:\xampp\htdocs\chatbot\`
 
-1. Chatboten bruker ikke en api for å svare brukeren, dette var et bevvist valg av oss ettersom vi ikek fant noen passende api som var gratis.
-2. Chatboten benytter nøkkelord fra brukerens spørsmål. Dersom en bruker for eksempel skriver «mat», identifiserer chatboten dette som et nøkkelord
-   og presenterer relevante spørsmål som brukeren kan velge mellom innenfor temaet mat. Det gjøres i denne tabellen:
-   <img width="602" height="670" alt="question" src="https://github.com/user-attachments/assets/c7a5ae3f-aef7-4afe-976c-a0fde6fa22f6" />
-    Figur: 4.
-   
+4. **Hent API-nøkkel fra NLPCloud**
 
-Adminsiden:
+   * Gå til: [https://nlpcloud.com/](https://nlpcloud.com/)
+   * Opprett en gratis bruker.
+   * Generer en gratis API-nøkkel.
+   * Lag en fil, `text.text`, og legg inn API-nøkkelen der.
 
-1. Forskjellen på brukersiden og adminsiden er at på adminsiden kan man lage spørsmål.
-2. Etter man har laget et spørsmål så kan man knytte opp til 10 keywords til det, som henvist på figur 4.
+     * Filen brukes av applikasjonen til å lese API-nøkkelen uten å hardkode den i koden.
+
+5. **Åpne applikasjonen i nettleseren**
+
+   Skriv inn følgende URL i nettleseren:
+
+   ```text
+   http://localhost/chatbot/IS-115-Chatbot-i-PHP/public
+   ```
+
+   Du vil først bli sendt til innloggingssiden siden du ikke er logget inn.
+
+---
+
+## Brukerinnlogging
+
+Du kan enten:
+
+* Logge inn med en eksisterende admin-bruker, eller
+* Registrere en ny bruker via registreringsskjemaet.
+
+Eksempel på admin-bruker som kan brukes ved testing:
+
+* **Email:** `admin@gmail.com`
+* **Passord:** `Password123@`
+
+Etter innlogging vil du komme til hovedsiden der du kan stille spørsmål til chatboten.
+<img width="2556" height="1386" alt="image" src="https://github.com/user-attachments/assets/5f244dd2-b517-4e03-8283-43be9d4d152f" />
+
+
+---
+
+## Brukerside (chatvisning)
+
+1. Brukeren skriver inn et spørsmål i tekstfeltet.
+2. Chatboten analyserer teksten, finner nøkkelord og forsøker å matche disse mot databasen.
+3. Dersom for eksempel en bruker skriver *"food"*, og `food` ikke finnes som nøkkelord, vil chatboten gi standard svar om at den ikke klarte å finne spørsmålet.
+
+Spørsmål og nøkkelord administreres i tabellene slik som vist i databasediagrammet/skjermbildet.
+
+---
+
+## Adminside
+
+Forskjellen mellom brukersiden og adminsiden er:
+
+* På **brukersiden** kan man kun stille spørsmål og lese svar.
+* På **adminsiden** kan man i tillegg:
+
+  * Opprette nye spørsmål og svar.
+  * Knytte opptil **10 nøkkelord** til hvert spørsmål.
+  * På den måten styre hvilke brukerinnputt som skal trigge hvilke spørsmål/svar.
+  * Redigere og slette bruker innformasjon.
+
+Dette gir en fleksibel, regelbasert FAQ-chatbot der administrator kan bygge ut kunnskapsbasen over tid uten å endre selve koden.
+
+
+
    
 
 
