@@ -7,7 +7,7 @@
                 <h1 class="bot-name">UIA Chatbot</h1>
                 <div class="bot-status">
                     <span class="status-dot"></span>
-                    <span>Klar til å hjelpe</span>
+                    <span>Ready to help</span>
                 </div>
             </div>
         </header>
