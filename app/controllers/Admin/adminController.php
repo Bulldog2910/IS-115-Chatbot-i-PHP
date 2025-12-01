@@ -54,6 +54,9 @@ class AdminController
                     // ADD QUESTION: keep your existing logic
                     require __DIR__ . '/addQController.php';
                     $question = new addQController($this->conn, $_POST);
+                    if($question){
+                        echo "Added succesfully!";
+                    }
                     // assuming addQController does its work in __construct
                 }
             }

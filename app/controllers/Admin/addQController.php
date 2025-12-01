@@ -46,9 +46,13 @@ class addQController{
         );
         
         $addQ->checkKeywordExist();
-        $addQ->addQuestion();
+        if($addQ->addQuestion()){
+            return "Added correctly";
+        }else{
+            return $addQ->addQLog;
+        }
 
-        return $addQ->addQLog;
+        
     }
 
     }
