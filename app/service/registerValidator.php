@@ -12,6 +12,27 @@ class RegisterValidator {
     // Collect all validation errors
     private array $errors = [];
 
+    //getters
+    public function getFirstName(): string {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string {
+        return $this->lastName;
+    }
+
+    public function getUsername(): string {
+        return $this->username;
+    }
+
+    public function getEmail(): string {
+        return $this->email;
+    }
+
+    public function getPassword(): string {
+        return $this->password;
+    }
+
     /**
      * Constructor
      * ----------- 

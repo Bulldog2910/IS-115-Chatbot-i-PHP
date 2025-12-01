@@ -1,5 +1,4 @@
 <?php
-/*Edit keyword controller*/
 require_once __DIR__ . '/../../config/dbOOP.php'; // DB connection
 require_once __DIR__ . '/../../models/admin/editKeywordModel.php';
 

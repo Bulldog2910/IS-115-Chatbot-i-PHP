@@ -84,20 +84,13 @@ nav{
   align-items: center;
   justify-content: center;
   height: 2vh;
+  gap: 10px;
 }
 
 .user-info{
   width: auto;
   min-width: fit-content;
-
+  height: 100;
 }
 
-nav form {
-    display: flex;           /* allows flex alignment inside nav */
-    margin: 0;               /* remove default margins */
-    align-items: center;     /* vertically center the input */
-}
-.logout{
-  height: 4vh;
-}
 

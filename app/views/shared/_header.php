@@ -74,12 +74,12 @@
                     <a class="button" href="./admin.php">Admin</a>
                 </div>
         <?php endif;?>
+        <div class="user-info">
+        <?php if (isset($_SESSION['username'])): ?>
+            <form method="POST" >
+                <input type="submit" name="logout" class="button" value="Log out">
+            </form>  
+        <?php endif; ?>
+        </div>
     </nav>
-            <div class="logout">
-            <?php if (isset($_SESSION['username'])): ?>
-                <form method="POST" >
-                    <input type="submit" name="logout" class="button" value="Logg ut">
-                </form>  
-            <?php endif; ?>
-            </div>
     

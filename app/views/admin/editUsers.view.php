@@ -13,7 +13,7 @@
 
 <?php while ($row = $selectViews->resultChat->fetch_assoc()): ?>
     <tr>
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
+        <form method="POST" action="<?= htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8') ?>">
             <td>
                 <input type="text" name="username"
                        value="<?= htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8') ?>">
