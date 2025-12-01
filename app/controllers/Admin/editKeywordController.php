@@ -1,17 +1,18 @@
 <?php
-require_once __DIR__ . '/../../config/dbOOP.php'; // DB connection
 require_once __DIR__ . '/../../models/admin/editKeywordModel.php';
 
-
 class editKeywordController{
-    public $keyword;   // The ID of the keyword to edit
-    public $keywordId; // The new keyword value
-    public editkeyword $editKeywordModel;
+    private mysqli $conn;
+    public $keyword;   // The new keyword value
+    public $keywordId; // The ID of the keyword to edit
+    public editKeyword $editKeywordModel;
 
-    public function __construct($post){
+    public function __construct($conn, $post){
+        
+        $this->conn = $conn;
         $this->keyword = $post['identificatorValue'];
         $this->keywordId = $post['identificatorId'];
-        $this->editKeywordModel = new editkeyword($this->keywordId, $this->keyword);
+        $this->editKeywordModel = new editKeyword($this->conn, $this->keywordId, $this->keyword);
        
     }
     public function handle(){

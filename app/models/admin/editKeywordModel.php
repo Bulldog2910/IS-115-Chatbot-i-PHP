@@ -3,20 +3,24 @@
  * EditKeyword Class
  * Handles editing an existing keyword in the database.
  */
-class editkeyword {
+class editKeyword {
     // Properties
+    private mysqli $conn;
     public $keyword;   // The ID of the keyword to edit
     public $keywordId; // The new keyword value
     public $err = [];  // Array to store error messages
     public $log = [];  // Array to store log messages
+    
 
     /**
      * Constructor
+     * @param mysqli     $conn  Connection object to database
      * @param int|string $id    The ID of the keyword to edit
      * @param string     $value The new keyword value
      */
-    public function __construct($id, $value)
+    public function __construct($conn, $id, $value)
     {
+        $this->conn = $conn;
         // Trim whitespace from new value and convert to lowercase
         $trimmed = trim($value);
         $this->keywordId = strtolower($trimmed);
@@ -31,24 +35,21 @@ class editkeyword {
      * - Updates the keyword if it does not exist
      */
     function editKeyword() {
-        require __DIR__ . '/../../config/dbOOP.php'; // Include database connection
-
         $id = $this->keyword;      // Existing keyword ID
         $keyword = $this->keywordId; // New keyword value
 
         // Check if the new keyword already exists in the database
-        $stmt = $conn->prepare('SELECT * FROM keyWords WHERE keyword = ?');
+        $stmt = $this->conn->prepare('SELECT * FROM keyWords WHERE keyword = ?');
         $stmt->bind_param('s', $keyword);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-
         if ($result->num_rows !== 0) {
             // Keyword already exists → add an error
             $this->err['DB-01'] = 'Keyword already exists with Keyid: ' . $row['keywordId'];
         } else {
             // Keyword does not exist → update the keyword
-            $stmt = $conn->prepare('UPDATE keyWords SET keyword = ? WHERE keywordId = ?');
+            $stmt = $this->conn->prepare('UPDATE keyWords SET keyword = ? WHERE keywordId = ?');
             $stmt->bind_param('si', $keyword, $id);
 
             if ($stmt->execute()) {

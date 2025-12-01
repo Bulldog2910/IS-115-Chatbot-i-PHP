@@ -27,7 +27,7 @@ class AdminController
             if($keywordUpdate == 'keywordUpdate'){
                 include __DIR__ . '/editKeywordController.php';
                 //Make instance of editKeywordController
-                $editkeyword = new editKeywordController($_POST);
+                $editkeyword = new editKeywordController($this->conn, $_POST);
                 $editkeyword->handle();
                 
             }
