@@ -6,7 +6,7 @@
 ?>
 <link rel="stylesheet" href="./CSS/registrerUser.css">
 
-<h1>Registrer ny bruker</h1>
+<h1>Register new user</h1>
 
 <?php if (!empty($error)): ?>
     <ul style="color:red;">
@@ -21,29 +21,29 @@
 <?php endif; ?>
 
 <form method="post" action="">
-    <label for="firstName">Fornavn:</label><br>
+    <label for="firstName">First name:</label><br>
     <input type="text" id="firstName" name="firstName"
            value="<?= htmlspecialchars($data['firstName'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <label for="lastName">Etternavn:</label><br>
+    <label for="lastName">Last name:</label><br>
     <input type="text" id="lastName" name="lastName"
            value="<?= htmlspecialchars($data['lastName'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <label for="username">Brukernavn:</label><br>
+    <label for="username">Username:</label><br>
     <input type="text" id="username" name="username"
            value="<?= htmlspecialchars($data['username'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <label for="userpassword">Passord:</label><br>
+    <label for="userpassword">Password:</label><br>
     <input type="password" id="userpassword" name="userpassword"
            value="<?= htmlspecialchars($data['userpassword'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <label for="repeatpassword">Gjenta passord:</label><br>
+    <label for="repeatpassword">Repeat password:</label><br>
     <input type="password" id="repeatpassword" name="repeatpassword"
            value="<?= htmlspecialchars($data['repeatpassword'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <label for="mail">E-post:</label><br>
+    <label for="mail">e-mail:</label><br>
     <input type="text" id="mail" name="mail"
            value="<?= htmlspecialchars($data['mail'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><br><br>
 
-    <input type="submit" name="registrer" value="Register">
+    <input type="submit" name="register" value="Register">
 </form>
