@@ -1,5 +1,4 @@
 <?php
-// app/controllers/Admin/editUserController.php
 
 require_once __DIR__ . '/../../models/User/userModel.php';
 require_once __DIR__ . '/../../models/admin/selectModel.php';
@@ -59,7 +58,7 @@ class EditUser
         $selectViews = new select($this->conn);
 
         // STEP 3: Render the admin view for editing users
-        require __DIR__ . '/../../views/admin/editUsers.view.php';
+        require __DIR__ . '/../../views/admin/admin.view.php';
     }
 
 
@@ -118,12 +117,12 @@ class EditUser
         }
 
         // Cleaned + normalized values from validator
-        $username  = $rawData['username'];
-        $firstName = $rawData['firstName'];
-        $lastName  = $rawData['lastName'];
-        $mail      = $rawData['mail'];
+        $username  = $validator->getUsername();
+        $firstName = $validator->getFirstName();
+        $lastName  = $validator->getLastName();
+        $mail      = $validator->getEmail();
         $role      = $_POST['role'] ?? 'standard';
-        $newPass   = $rawData['userpassword']; // can be empty → model will keep old password
+        $newPass   = $validator->getPassword(); // can be empty → model will keep old password
 
         // Perform the actual update in the database
         $this->userModel->updateUserById(

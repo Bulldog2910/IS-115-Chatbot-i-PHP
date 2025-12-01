@@ -1,9 +1,7 @@
-<a class="hjem" href="./Index.php">
-    <H1>Hjem</H1>
-</a>
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="POST">
+
+<!-- <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="POST">
     <input class="button" type="submit" name="identificatorTable" value="Reset Database">
-</form>
+</form> -->
 <?php
     $_SESSION['chatbotLog'] = [];
 ?>

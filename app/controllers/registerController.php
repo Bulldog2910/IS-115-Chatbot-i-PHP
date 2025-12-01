@@ -91,6 +91,13 @@ class RegisterController
              * and store the hashed password in the database.
              */
             if (empty($errors)) {
+                 // Hent normaliserte verdier fra validator, ikke rå POST
+                $firstName = $validator->getFirstName();
+                $lastName  = $validator->getLastName();
+                $username  = $validator->getUsername();
+                $email     = $validator->getEmail();
+                $password  = $validator->getPassword();
+
                 // Secure hashing using PHP’s default algorithm (bcrypt/argon2)
                 $hashedPassword = password_hash($formData['userpassword'], PASSWORD_DEFAULT);
 
