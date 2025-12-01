@@ -56,6 +56,7 @@ class AdminController
                 }
                 if ($_POST['Qtype'] === 'addQ') {
                     require __DIR__ . '/addQController.php';
+                    $question = new addQController($this->conn, $_POST);
                 }
             }
 
