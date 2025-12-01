@@ -58,7 +58,7 @@ Den enkleste gratis tilgjengelige API-ene vi fant for lemmatisering og synonymer
 
 3. **Plasser prosjektet i `htdocs`**
 
-   * Klon eller kopier prosjektet inn i XAMPP sin `htdocs`-mappe, f.eks.:
+   * Klon eller kopier prosjektet inn i XAMPP sin `htdocs`-mappe, og lag en mappe som heter chatbot:
      `C:\xampp\htdocs\chatbot\`
 
 4. **Hent API-nøkkel fra NLPCloud**
@@ -104,7 +104,7 @@ Etter innlogging vil du komme til hovedsiden der du kan stille spørsmål til ch
 
 1. Brukeren skriver inn et spørsmål i tekstfeltet.
 2. Chatboten analyserer teksten, finner nøkkelord og forsøker å matche disse mot databasen.
-3. Dersom for eksempel en bruker skriver *"food"*, og `food` finnes som nøkkelord, vil chatboten gi standard svar om at den ikke klarte å finne spørsmålet.
+3. Dersom for eksempel en bruker skriver *"food"*, og `food` ikke finnes som nøkkelord, vil chatboten gi standard svar om at den ikke klarte å finne spørsmålet.
 
 Spørsmål og nøkkelord administreres i tabellene slik som vist i databasediagrammet/skjermbildet.
 
