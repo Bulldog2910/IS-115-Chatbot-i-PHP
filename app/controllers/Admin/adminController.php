@@ -22,14 +22,13 @@ class AdminController
         $keywordUpdate = $_POST['identificator'] ?? '';
 
         // KEYWORD EDIT
-         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $identificator === 'keyword') {
-            //If edit keyword button is pressed run editKeywordController
-            if($keywordUpdate == 'keywordUpdate'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $identificator === 'keyword') {
+            // If edit keyword button is pressed run editKeywordController
+            if ($keywordUpdate == 'keywordUpdate') {
                 include __DIR__ . '/editKeywordController.php';
                 //Make instance of editKeywordController
                 $editkeyword = new editKeywordController($this->conn, $_POST);
                 $editkeyword->handle();
-                
             }
             include __DIR__ . '/../../views/admin/keywordForm.php';
         }
@@ -46,11 +45,16 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $identificator === 'question') {
             if (isset($_POST['Qtype'])) {
                 if ($_POST['Qtype'] === 'editQ') {
+                    // EDIT QUESTION → use editQController
                     require __DIR__ . '/editQController.php';
+                    $editQ = new editQController($this->conn, $_POST);
+                    $editQ->handle();            // calls model->updateQ()
                 }
                 if ($_POST['Qtype'] === 'addQ') {
+                    // ADD QUESTION: keep your existing logic
                     require __DIR__ . '/addQController.php';
                     $question = new addQController($this->conn, $_POST);
+                    // assuming addQController does its work in __construct
                 }
             }
 

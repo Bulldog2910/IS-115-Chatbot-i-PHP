@@ -1,46 +1,65 @@
 <?php
-/*
- * EditQModel Class
- * Handles editing an existing question and its associated keywords in the database.
+/**
+ *    model:
+ *  - Holds question data and keyword data
+ *  - Reads/writes to the database
+ *  - Blind to controller/view (no redirects, no echo)
  */
 class editQModel {
-    
+
+    /** @var mysqli */
+    private mysqli $conn;       // DB connection injected by the controller
+
     // Logs to store messages during question/keyword update
-    public $addQLog = [];
+    public array $addQLog = [];
 
     // Question fields
-    public $questionDescription; // The question text
-    public $questionAnswer;      // The answer text
+    public ?string $questionDescription = null; // The question text
+    public ?string $questionAnswer      = null; // The answer text
 
     // Keyword management
-    public $keywordArr = [];     // Array containing all keyword values
-    public $keywordIds = [];     // Array containing corresponding keyword IDs in the database
-    public $keyword1;
-    public $keyword2;
-    public $keyword3;
-    public $keyword4;
-    public $keyword5;
-    public $keyword6;
-    public $keyword7;
-    public $keyword8;
-    public $keyword9;
-    public $keyword10;
+    public array $keywordArr = [];  // Array containing all keyword values
+    public array $keywordIds = [];  // Array containing corresponding keyword IDs in the database
+
+    public ?string $keyword1  = null;
+    public ?string $keyword2  = null;
+    public ?string $keyword3  = null;
+    public ?string $keyword4  = null;
+    public ?string $keyword5  = null;
+    public ?string $keyword6  = null;
+    public ?string $keyword7  = null;
+    public ?string $keyword8  = null;
+    public ?string $keyword9  = null;
+    public ?string $keyword10 = null;
 
     // Question ID
-    public $Qid;
+    public ?int $Qid = null;
 
     /**
      * Constructor
-     * Initializes object properties from POST array
-     * Normalizes keywords to lowercase and trims whitespace
-     * Builds the keyword array and checks/creates keywords in the DB
+     * -----------
+     * @param mysqli $conn    Active DB connection (from config/dbOOP.php)
+     * @param array  $postArr Raw POST data from controller
+     *
+     * Initializes object properties from POST array.
+     * Normalizes keywords to lowercase and trims whitespace.
+     * Builds the keyword array and checks/creates keywords in the DB.
      */
-    public function __construct($postArr)
+    public function __construct(mysqli $conn, array $postArr)
     {
+        $this->conn = $conn;
+
         foreach ($this as $prop => $value) {
 
             // Skip array properties (like $keywordArr and $keywordIds)
-            if (is_array($value)) continue;
+            if (is_array($value)) {
+                continue;
+            }
+
+            // Skip the DB connection itself
+            if ($prop === 'conn') {
+                continue;
+            }
 
             if (isset($postArr[$prop])) {
 
@@ -54,10 +73,12 @@ class editQModel {
             }
         }
 
-        // Ensure Qid is set from identificatorId
-        $this->Qid = intval($postArr['identificatorId']);
+        // Ensure Qid is set from identificatorId (same logic as before)
+        if (isset($postArr['identificatorId'])) {
+            $this->Qid = intval($postArr['identificatorId']);
+        }
 
-        // Build keyword array
+        // Build keyword array (same order/logic as before)
         $this->keywordArr = [
             $this->keyword1, $this->keyword2, $this->keyword3, $this->keyword4, $this->keyword5,
             $this->keyword6, $this->keyword7, $this->keyword8, $this->keyword9, $this->keyword10
@@ -72,27 +93,27 @@ class editQModel {
      * - If not, inserts the keyword
      * - Stores corresponding keyword IDs
      */
-    public function checkKeywordExist(){
-        require __DIR__ . '/../../config/dbOOP.php';
+    public function checkKeywordExist(): void
+    {
         $bind = null;
 
         // Prepare select statement
-        $stmt = $conn->prepare('SELECT * FROM keywords WHERE keyword = ?');
+        $stmt = $this->conn->prepare('SELECT * FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
 
-        foreach($this->keywordArr as $key){
-            if($key !== ""){
+        foreach ($this->keywordArr as $key) {
+            if ($key !== "" && $key !== null) {
                 $bind = $key;
                 $stmt->execute();
                 $result = $stmt->get_result();
 
-                if($result->num_rows === 0){
+                if ($result->num_rows === 0) {
                     // Keyword does not exist → insert it
-                    $add = $conn->prepare('INSERT INTO keywords (keyword) VALUES (?)');
+                    $add = $this->conn->prepare('INSERT INTO keywords (keyword) VALUES (?)');
                     $add->bind_param('s', $key);
                     $add->execute();
 
-                    $keyId = intval($this->getkeywordId($key));
+                    $keyId = intval($this->getKeywordId($key));
                     $this->addQLog[] = '"' . $key . '" added to keywords table';
                 } else {
                     // Keyword already exists → fetch its ID
@@ -114,26 +135,24 @@ class editQModel {
      * @param string $bind Keyword to lookup
      * @return int Keyword ID
      */
-    private function getkeywordId($bind){
-        require __DIR__ . '/../../config/dbOOP.php';
-        $stmt = $conn->prepare('SELECT keywordId FROM keywords WHERE keyword = ?');
+    private function getKeywordId(string $bind): int
+    {
+        $stmt = $this->conn->prepare('SELECT keywordId FROM keywords WHERE keyword = ?');
         $stmt->bind_param('s', $bind);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
-        return $row['keywordId'];
+        return (int)$row['keywordId'];
     }
 
     /**
      * Update the question in the database
      * Updates question text, answer, and the 10 associated keywords
      */
-    public function updateQ(){
-        require __DIR__ . '/../../config/dbOOP.php';
-
-        // Prepare update statement for the questions table
-        $stmt = $conn->prepare(
+    public function updateQ(): void
+    {
+        $stmt = $this->conn->prepare(
             "UPDATE questions SET
                 questionDescription = ?,
                 questionAnswer = ?,
@@ -150,26 +169,24 @@ class editQModel {
             WHERE questionId = ?"
         );
 
-        // Bind question data and keyword IDs
         $stmt->bind_param(
-            'ssiiiiiiiiiii', 
-            $this->questionDescription, 
-            $this->questionAnswer, 
-            $this->keywordIds[0], 
-            $this->keywordIds[1], 
-            $this->keywordIds[2], 
-            $this->keywordIds[3], 
-            $this->keywordIds[4], 
-            $this->keywordIds[5], 
-            $this->keywordIds[6], 
-            $this->keywordIds[7], 
-            $this->keywordIds[8], 
+            'ssiiiiiiiiiii',
+            $this->questionDescription,
+            $this->questionAnswer,
+            $this->keywordIds[0],
+            $this->keywordIds[1],
+            $this->keywordIds[2],
+            $this->keywordIds[3],
+            $this->keywordIds[4],
+            $this->keywordIds[5],
+            $this->keywordIds[6],
+            $this->keywordIds[7],
+            $this->keywordIds[8],
             $this->keywordIds[9],
             $this->Qid
         );
 
-        // Execute update and log result
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             $this->addQLog[] = 'Updated correctly';
         } else {
             $this->addQLog[] = ['DB-03' => 'Error updating Question: ' . $stmt->error];

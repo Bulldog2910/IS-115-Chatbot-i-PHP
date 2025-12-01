@@ -106,7 +106,6 @@ class RegisterValidator {
         $this->checkFirstNameFormat();
         $this->checkLastNameFormat();
         $this->checkUsernameFormat();
-
         $this->checkEmail();
 
         // Password rules only apply if at least one password field is provided
