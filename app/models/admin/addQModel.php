@@ -119,8 +119,10 @@ class addQModel {
         // Execute insertion and log result
         if($stmt->execute()){
             $this->addQLog[] = 'Inserted correctly';
+            return true;
         } else {
             $this->addQLog['DB-03'] = 'Error inserting Question: ' . $stmt->error;
+            return false;
         }
     }
 }

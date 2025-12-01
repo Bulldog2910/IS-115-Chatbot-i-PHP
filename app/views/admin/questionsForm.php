@@ -16,7 +16,13 @@
     Keyword 10: <input name="keyword10" type="text" value="<?php echo $_POST['keyword10'] ?? ""?>"><br>
 
     <input name="identificatorTable" type="hidden" value="question">
-    <input type="submit" name="Qtype" value="addQ"> 
-    <input type="submit" name="Qtype" value="editQ">          
-    <?php echo $_POST['identificatorQ'] ?? ""?>      
+<?php 
+    if(isset($_POST['identificatorQ'])){
+        if($_POST['identificatorQ'] == 'addQ'){
+            echo '<input type="submit" name="Qtype" value="addQ"><input type="hidden" name="identificatorQ" value="addQ"> ';
+        }elseif($_POST['identificatorQ'] == 'editQ'){
+           echo '<input type="submit" name="Qtype" value="editQ"><input type="hidden" name="identificatorQ" value="editQ">';    
+        }
+    }
+?>       
 </form>
