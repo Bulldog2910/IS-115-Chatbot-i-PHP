@@ -1,5 +1,4 @@
 <?php
-/* Login Controller*/
 
 require_once __DIR__ . '/../config/db.php'; // Starts Db connection
 require_once __DIR__ . '/../models/user/userModel.php'; // Loads the User model class

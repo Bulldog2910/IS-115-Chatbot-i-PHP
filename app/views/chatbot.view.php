@@ -7,7 +7,7 @@
                 <h1 class="bot-name">UIA Chatbot</h1>
                 <div class="bot-status">
                     <span class="status-dot"></span>
-                    <span>Ready to help</span>
+                    <span>Ready to help!</span>
                 </div>
             </div>
         </header>
@@ -17,11 +17,11 @@
                     <p>Hi! I’m the UIA chatbot, your personal assistant. How can I help you today?</p>
                     <div class="quick-actions">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
-                            <button class="quick-action" id="quick-action1" name="quickQuestion" value="1">How do I navigate?</button>
-                            <button class="quick-action" id="quick-action2" name="quickQuestion" value="2">When is the exams?</button>
-                            <button class="quick-action" id="quick-action3" name="quickQuestion" value="3">What activities are there?</button>
-                            <button class="quick-action" id="quick-action4" name="quickQuestion" value="4">Where is UIA</button>
-                            <button class="quick-action" id="quick-action5" name="quickQuestion" value="5">Are there parkingspots?</button>
+                            <button class="quick-action" id="quick-action1" name="quickQuestion" value="1">How do I find my way?</button>
+                            <button class="quick-action" id="quick-action2" name="quickQuestion" value="2">When are the exams?</button>
+                            <button class="quick-action" id="quick-action3" name="quickQuestion" value="3">What activity is available?</button>
+                            <button class="quick-action" id="quick-action4" name="quickQuestion" value="4">Where is UiA located?</button>
+                            <button class="quick-action" id="quick-action5" name="quickQuestion" value="5">Is there parking?</button>
                         </form>
                     </div>
                 </div>
