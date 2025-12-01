@@ -11,7 +11,7 @@
         <td><?= $row['keyword'] ?></td>
         
         <td>
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"> 
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI'])?>"> 
                 <input type="submit" value="Edit"> 
                 <input name="identificatorValue" type="hidden" value="<?php echo $row['keyword']?>">
                 <input name="identificatorId" type="hidden" value="<?php echo $row['keywordId']?>">

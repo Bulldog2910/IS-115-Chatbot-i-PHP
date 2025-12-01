@@ -19,25 +19,19 @@ class AdminController
     public function handle(): void
     {
         $identificator = $_POST['identificatorTable'] ?? 'wrong';
+        $keywordUpdate = $_POST['identificator'] ?? '';
 
         // KEYWORD EDIT
          if ($_SERVER['REQUEST_METHOD'] === 'POST' && $identificator === 'keyword') {
-            // This file MAY or MAY NOT create $editKeywordModel depending on $_POST['identificator']
-            include __DIR__ . '/editKeywordController.php';
-
-            // Show the form (it can use $_POST etc.)
-            include __DIR__ . '/../../views/admin/keywordForm.php';
-
-            // Only try to read errors if the model actually exists
-            if (isset($editKeywordModel)) {
-                $error = $editKeywordModel->error();
-
-                if (is_array($error)) {
-                    foreach ($error as $errorId => $errorMessage) {
-                        echo "<p style='color: red;'>Error id: $errorId ($errorMessage)</p>";
-                    }
-                }
+            //If edit keyword button is pressed run editKeywordController
+            if($keywordUpdate == 'keywordUpdate'){
+                include __DIR__ . '/editKeywordController.php';
+                //Make instance of editKeywordController
+                $editkeyword = new editKeywordController($_POST);
+                $editkeyword->handle();
+                
             }
+            include __DIR__ . '/../../views/admin/keywordForm.php';
         }
 
         // RESET DATABASE
