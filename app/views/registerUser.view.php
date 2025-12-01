@@ -1,8 +1,11 @@
 <?php
-
-// $error       = array of error messages
+// Form that registers a new user
 // $successMsg  = success string
 // $data        = form values: firstName, lastName, username, mail, userpassword, repeatpassword
+?>
+
+<?php
+// Load CSS stylesheet
 ?>
 <link rel="stylesheet" href="./CSS/registrerUser.css">
 
@@ -19,6 +22,9 @@
        
 <?php endif; ?>
 
+<?php
+// Registration form
+?>
 <form method="post" action="">
 
        <h1>Register new user</h1>
