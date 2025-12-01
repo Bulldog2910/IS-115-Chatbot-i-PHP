@@ -25,7 +25,7 @@ class chatbotModel {
 
         if($this->keywordArr == []) {
             // No keywords found → show message
-            $this->QArr = "Found no keywords in the question";
+            $this->QArr = [];
         } else {
             // Fetch all matching questions based on found keywords
             $this->QArr = $this->getQArr();
@@ -119,7 +119,9 @@ class chatbotModel {
 
                 while ($stmt->fetch()) {
                     $this->chatbotLog[] = "MATCH: '{$possibleKey}' => keywordId {$keywordId}<br>";
-                    $keywordArr[$keywordId] = $keywordId; // store unique IDs
+                    if(!is_null($keywordId)){
+                        $keywordArr[$keywordId] = $keywordId; // store unique IDs
+                    }
                 }
             }
         }

@@ -21,7 +21,7 @@ class scoring {
     public function __construct($chatbotModel, $originalQ)
     {
         // If no keywords were found in the user's input
-        if($chatbotModel->QArr == "Found no keywords in the question") {
+        if(empty($chatbotModel->QArr)) {
             $this->bestScore['No keyword'] = [
                 $originalQ,
                 'I didnt quite get that, can you try again with different phrasing?'
