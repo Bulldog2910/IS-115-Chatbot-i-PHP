@@ -8,13 +8,15 @@ Applikasjonen er en **regel-basert chatbot** som svarer på **UiA-relaterte spø
 
 1. Brukerens spørsmål tas inn som en tekststreng.
 2. Teksten deles opp i ord.
-3. Stopwords fjernes.
+3. Stopwords fjernes(ved å sjekke opp mot et array som inneholder typiske stopwords).
 4. Ordene normaliseres til grunnform (f.eks. *biler* → *bil*) ved hjelp av et NLP-API.
 5. De rensede ordene sendes videre til et synonym-API.
 6. Alle ord (inkludert synonymer) sjekkes mot nøkkelordene som ligger lagret i databasen.
-7. Matcher chatboten ett eller flere nøkkelord, henter den frem tilhørende spørsmål og svar og presenterer relevante alternativer til brukeren.
+7. Matcher chatboten ett eller flere nøkkelord, henter den frem tilhørende spørsmål og svar
+8. Disse spørsmålene og svarene blir deretter kjørt gjennom et scoring algoritme som velger ut spørsmålet med høyest score.
+9. Spørsmål og svar med høyest score blir vist til brukeren sammen med tidliggere stilte spørsmål
 
-De eneste gratis tilgjengelige API-ene vi fant for lemmatisering og synonymer var engelske. Vi valgte derfor å gjøre hele webapplikasjonen på engelsk (UI, spørsmål, svar og nøkkelord).
+Den enkleste gratis tilgjengelige API-ene vi fant for lemmatisering og synonymer var engelske. Vi valgte derfor å gjøre hele webapplikasjonen på engelsk (UI, spørsmål, svar og nøkkelord).
 
 ---
 
@@ -34,6 +36,7 @@ De eneste gratis tilgjengelige API-ene vi fant for lemmatisering og synonymer va
   * NLPCloud (lemmatisering / normalisering av ord)
   * Synonym-API (engelsk) for å utvide brukerens ord til flere relevante varianter
 * Viktig: Chatboten bruker **ikke** et generativt AI-API for å lage svar. Alle svar er forhåndsdefinerte i databasen og styres via nøkkelord.
+* Viktig: Lemma funksjon funker kun om Api key fra NLP cloud blir puttet i en text.text fil i root, i søskenmappe til app og public
 
 ---
 

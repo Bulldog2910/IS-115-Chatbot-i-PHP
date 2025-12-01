@@ -33,8 +33,14 @@
 
             //Lemmanize input to make it more likely to match with keyword
             //Api
-            $lemma = new lemma($stopwordArr);
-            $lemmaArr = $lemma->getLemma();
+            if(file_exists(__DIR__ . '/../../../text.text')){
+                $lemma = new lemma($stopwordArr);
+                $lemmaArr = $lemma->getLemma();
+            }else{
+                echo "Api key file not found, continuing without lemmatization";
+                $lemmaArr = [];
+            }
+            
 
             //If lemma api didnt work then do it without lemmanized input
             if(!empty($lemmaArr)){
