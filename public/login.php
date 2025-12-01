@@ -9,4 +9,7 @@
 
     $controller = new LoginController($conn);
     $controller->handleRequest();
+
+    include __DIR__ . '/../app/views/shared/_footer.php';
+
 ?>

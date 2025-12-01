@@ -1,20 +1,21 @@
 <?php
-   
-   include __DIR__ . '/../app/views/shared/_header.php';
+session_start(); // hvis ikke startet allerede
 
-
-// Only admins allowed
+// 1) Sjekk admin FØR output
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: ./index.php");
     exit;
 }
 
-// DB connection
+// 2) Deretter last alt annet
 require_once __DIR__ . '/../app/config/dbOOP.php';
-
-// AdminController for questions/keywords/reset
 require_once __DIR__ . '/../app/controllers/Admin/adminController.php';
+
+include __DIR__ . '/../app/views/shared/_header.php';
 
 $controller = new AdminController($conn);
 $controller->handle();
+
+include __DIR__ . '/../app/views/shared/_footer.php';
+
 ?>
