@@ -60,7 +60,7 @@ class AdminController
         $selectViews = new select($this->conn);
 
         // Render the main admin dashboard view (for Qs/keywords)
-        require __DIR__ . '/../../views/admin/admin.php';
+        require __DIR__ . '/../../views/admin/admin.view.php';
     }
 }
 ?>
